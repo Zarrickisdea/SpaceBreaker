@@ -1,4 +1,4 @@
-import { _decorator, Component, Node } from 'cc';
+import { Component, _decorator } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('PlayerModel')
@@ -14,6 +14,10 @@ export class PlayerModel {
         this.hitsToKill = hitsToKill;
         this.damage = damage;
         this.speed = speed;
+        this.isPoweredUp = false;
+        this.powerUpDuration = 0;
+        this.isDead = false;
+        console.log('PlayerModel constructor');
     }
 
     public getIsDead(): boolean {
