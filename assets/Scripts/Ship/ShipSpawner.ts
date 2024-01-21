@@ -32,7 +32,7 @@ export class ShipSpawner extends Component {
         const shipModel = new ShipModel(hitsToKill);
         const shipController = new ShipController(shipViewPrefab, shipModel);
         shipController.getShipView().setShipParent(this.parentCanvas);
-        shipController.getShipView().setShipPosition(this.parentCanvas.position);
+        shipController.getShipView().setShipPosition(this.node.position);
     }
 
     protected onLoad(): void {

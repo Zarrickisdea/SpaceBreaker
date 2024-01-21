@@ -24,7 +24,7 @@ export class PlayerSpawner extends Component {
         const playerModel = new PlayerModel(this.hitsToKill, this.damage, this.speed);
         const playerController = new PlayerController(this.playerPrefab, playerModel, this.hitsToKill, this.damage, this.speed);
         playerController.getPlayerView().setPlayerParent(this.parentCanvas);
-        playerController.getPlayerView().setPlayerPosition(this.parentCanvas.position);
+        playerController.getPlayerView().setPlayerPosition(this.node.position);
     }
 
     protected onLoad(): void {
