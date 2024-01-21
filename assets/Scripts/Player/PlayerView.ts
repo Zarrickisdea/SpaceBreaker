@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, Node, Prefab } from 'cc';
+import { _decorator, Component, instantiate, Node, Prefab, Vec3 } from 'cc';
 import { PlayerController } from './PlayerController';
 const { ccclass, property } = _decorator;
 
@@ -7,17 +7,16 @@ export class PlayerView extends Component {
 
     private playerController: PlayerController = null;
 
-    constructor() {
-        super();
-        console.log('PlayerView constructor');
-    }
-
-    protected onLoad(): void {
-        console.log('PlayerView onLoad');
-    }
-
     public setPlayerController(playerController: PlayerController): void {
         this.playerController = playerController;
+    }
+
+    public setPlayerPosition(position: Vec3): void {
+        this.node.setPosition(position);
+    }
+
+    public setPlayerParent(parent: Node): void {
+        this.node.setParent(parent);
     }
 }
 

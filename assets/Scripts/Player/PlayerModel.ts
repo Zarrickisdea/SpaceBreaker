@@ -17,7 +17,6 @@ export class PlayerModel {
         this.isPoweredUp = false;
         this.powerUpDuration = 0;
         this.isDead = false;
-        console.log('PlayerModel constructor');
     }
 
     public getIsDead(): boolean {

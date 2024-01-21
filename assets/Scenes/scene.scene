@@ -23,7 +23,7 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 16
+      "__id__": 19
     },
     "_lpos": {
       "__type__": "cc.Vec3",
@@ -54,7 +54,7 @@
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 17
+      "__id__": 20
     },
     "_id": "8040ef12-f8ff-4567-93e0-70b8e7215f34"
   },
@@ -78,18 +78,21 @@
       },
       {
         "__id__": 11
+      },
+      {
+        "__id__": 13
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 13
+        "__id__": 16
       },
       {
-        "__id__": 14
+        "__id__": 17
       },
       {
-        "__id__": 15
+        "__id__": 18
       }
     ],
     "_prefab": null,
@@ -450,7 +453,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -640,
+      "y": -540,
       "z": 0
     },
     "_lrot": {
@@ -494,6 +497,96 @@
     "damage": 10,
     "speed": 5,
     "_id": "d9/Km82nFCx4YQnn5JKGYi"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "ShipSpawner",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 14
+      },
+      {
+        "__id__": 15
+      }
+    ],
+    "_prefab": null,
+    "_lpos": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_lrot": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_lscale": {
+      "__type__": "cc.Vec3",
+      "x": 1,
+      "y": 1,
+      "z": 1
+    },
+    "_mobility": 0,
+    "_layer": 33554432,
+    "_euler": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_id": "18P3503W5I+LFC2sq9GY1l"
+  },
+  {
+    "__type__": "cc.UITransform",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 13
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 100,
+      "height": 100
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_id": "761TIHkwZIL6psyg3ybNwg"
+  },
+  {
+    "__type__": "ed896dKoPhEfInQ6JYQ6z1M",
+    "_name": "",
+    "_objFlags": 0,
+    "__editorExtras__": {},
+    "node": {
+      "__id__": 13
+    },
+    "_enabled": true,
+    "__prefab": null,
+    "shipViewPrefabs": [
+      {
+        "__uuid__": "2f17af75-94b3-42c1-b1a7-ffabb9a98a6a",
+        "__expectedType__": "cc.Prefab"
+      }
+    ],
+    "minHitsToKill": 0,
+    "maxHitsToKill": 0,
+    "_id": "25AS+es5dPtJtKlzCkipUH"
   },
   {
     "__type__": "cc.UITransform",
@@ -574,28 +667,28 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 18
-    },
-    "shadows": {
-      "__id__": 19
-    },
-    "_skybox": {
-      "__id__": 20
-    },
-    "fog": {
       "__id__": 21
     },
-    "octree": {
+    "shadows": {
       "__id__": 22
     },
-    "skin": {
+    "_skybox": {
       "__id__": 23
     },
-    "lightProbeInfo": {
+    "fog": {
       "__id__": 24
     },
-    "postSettings": {
+    "octree": {
       "__id__": 25
+    },
+    "skin": {
+      "__id__": 26
+    },
+    "lightProbeInfo": {
+      "__id__": 27
+    },
+    "postSettings": {
+      "__id__": 28
     },
     "bakedWithStationaryMainLight": false,
     "bakedWithHighpLightmap": false
