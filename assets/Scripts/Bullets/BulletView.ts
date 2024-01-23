@@ -1,14 +1,15 @@
 import { _decorator, Component, Node } from 'cc';
+import { BulletController } from './BulletController';
 const { ccclass, property } = _decorator;
 
 @ccclass('BulletView')
 export class BulletView extends Component {
-    start() {
 
-    }
+    private bulletController: BulletController = null;
 
-    update(deltaTime: number) {
-        
+    public setBulletController(bulletController: BulletController): void {
+        this.bulletController = bulletController;
     }
 }
-
+
+
