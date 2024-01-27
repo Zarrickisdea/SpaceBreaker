@@ -1,14 +1,35 @@
 import { _decorator, Component, Node } from 'cc';
+import { BulletController } from './BulletController';
 const { ccclass, property } = _decorator;
 
 @ccclass('BulletView')
 export class BulletView extends Component {
-    start() {
 
+    private bulletController: BulletController = null;
+
+    public setBulletController(bulletController: BulletController): void {
+        this.bulletController = bulletController;
     }
 
-    update(deltaTime: number) {
-        
+    public getIsAlive(): boolean {
+        return this.node.active;
+    }
+
+    public setAsActive(): void {
+        this.node.active = true;
+    }
+
+    public setAsInactive(): void {
+        this.node.active = false;
+    }
+
+    public setParent(parent: Node): void {
+        this.node.setParent(parent);
+    }
+
+    protected onEnable(): void {
+
     }
 }
-
+
+

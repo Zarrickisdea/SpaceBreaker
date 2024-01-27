@@ -1,14 +1,24 @@
 import { _decorator, Component, Node } from 'cc';
+import { BaseState } from './BaseState';
 const { ccclass, property } = _decorator;
 
 @ccclass('StateMachine')
-export class StateMachine extends Component {
-    start() {
+export class StateMachine {
+    private currentState: BaseState = null;
 
+    public initialize(startingState: BaseState) {
+        this.currentState = startingState;
+        this.currentState.enter();
     }
 
-    update(deltaTime: number) {
-        
+    public changeState(newState: BaseState) {
+        if (this.currentState) {
+            this.currentState.exit();
+        }
+
+        this.currentState = newState;
+        this.currentState.enter();
     }
 }
-
+
+
