@@ -25,10 +25,14 @@ export class PlayerController {
         this.playerView.setPlayerController(this);
     }
 
+    public IsTouchActive(): boolean {
+        return this.isTouchActive;
+    }
+
     public onTouchStart(event) {
         this.isTouchActive = true;
         this.touchHoldTimer = 0;
-        this.onTouchHoldUpdate();
+        // this.onTouchHoldUpdate();
     }
 
     public onTouchEnd(event) {
@@ -37,9 +41,10 @@ export class PlayerController {
     }
 
     public onTouchMove(event) {
+        this.isTouchActive = true;
         if (this.isTouchActive) {
             this.MovePlayer(event);
-            this.onTouchHoldUpdate();
+            // this.onTouchHoldUpdate();
         }
     }
 
@@ -70,7 +75,6 @@ export class PlayerController {
         let deltaY = event.touch.getUILocationY();
         let newPos = new Vec3(deltaX, deltaY, 0);
         this.playerView.setPlayerWorldPosition(newPos);
-        console.log(newPos);
     }
 
     private attachTouchEvents(): void {
