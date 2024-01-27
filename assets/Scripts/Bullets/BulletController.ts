@@ -9,7 +9,7 @@ export class BulletController {
     private bulletModel: BulletModel = null;
     private bulletView: BulletView = null;
 
-    constructor(bulletViewPrefab: Prefab, bulletModel: BulletModel, speed: number) {
+    constructor(bulletViewPrefab: Prefab, bulletModel: BulletModel) {
         this.bulletModel = bulletModel;
 
         const bulletPrefab = instantiate(bulletViewPrefab);
@@ -22,6 +22,10 @@ export class BulletController {
 
     public getBulletView(): BulletView {
         return this.bulletView;
+    }
+
+    public FireBullet(): void {
+        this.bulletView.node.active = true;
     }
 }
 

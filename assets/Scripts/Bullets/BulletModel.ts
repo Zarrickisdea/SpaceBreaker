@@ -6,6 +6,10 @@ export class BulletModel {
 
     private speed: number = 0
 
+    constructor(speed: number) {
+        this.speed = speed;
+    }
+
     public getSpeed(): number {
         return this.speed;
     }
