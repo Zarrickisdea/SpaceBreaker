@@ -15,6 +15,9 @@ export class ShipSpawner extends Component {
     @property({ range: [4, 6] })
     private maxHitsToKill: number = 0;
 
+    @property({ type: Node })
+    private enemyLayout: Node = null;
+
     private parentCanvas: Node = null;
 
     private getRandomHitsToKill(): number {
@@ -26,13 +29,14 @@ export class ShipSpawner extends Component {
         return this.shipViewPrefabs[randomIndex];
     }
 
-    private spawnShip(): void {
+    private spawnShip(): ShipController {
         const shipViewPrefab = this.getRandomShipViewPrefab();
         const hitsToKill = this.getRandomHitsToKill();
         const shipModel = new ShipModel(hitsToKill);
         const shipController = new ShipController(shipViewPrefab, shipModel);
-        shipController.getShipView().setShipParent(this.node);
-        shipController.getShipView().setShipPosition(this.node.position);
+        shipController.getShipView().setShipParent(this.enemyLayout);
+        // shipController.getShipView().setShipPosition(this.node.position);
+        return shipController;
     }
 
     protected onLoad(): void {
@@ -40,7 +44,9 @@ export class ShipSpawner extends Component {
     }
 
     protected start(): void {
-        this.spawnShip();
+        for (let i = 0; i < 20; i++) {
+            this.spawnShip();
+        }
     }
 }
 

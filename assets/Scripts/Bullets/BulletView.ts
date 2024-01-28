@@ -1,4 +1,4 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator, Component, Node, tween, Vec3 } from 'cc';
 import { BulletController } from './BulletController';
 const { ccclass, property } = _decorator;
 
@@ -9,6 +9,14 @@ export class BulletView extends Component {
 
     public setBulletController(bulletController: BulletController): void {
         this.bulletController = bulletController;
+    }
+
+    public setPosition(position: Vec3): void {
+        this.node.setPosition(position);
+    }
+
+    public setWorldPosition(position: Vec3): void {
+        this.node.setWorldPosition(position);
     }
 
     public getIsAlive(): boolean {
@@ -27,8 +35,20 @@ export class BulletView extends Component {
         this.node.setParent(parent);
     }
 
-    protected onEnable(): void {
+    public firingBullet(): void {
+        tween(this.node)
+            .to(1, { position: new Vec3(this.node.position.x, this.bulletController.getParentCanvasUI().height, 0), }, { easing: 'linear'})
+            .call(() => this.bulletController.returnBulletToPool())
+            .start();
+    }
 
+    protected onEnable(): void {
+    }
+
+    protected onDisable(): void {
+    }
+
+    protected update(dt: number): void {
     }
 }
 

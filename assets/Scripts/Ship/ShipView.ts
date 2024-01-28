@@ -15,8 +15,16 @@ export class ShipView extends Component {
         this.node.setPosition(position);
     }
 
+    public setShipWorldPosition(position: Vec3): void {
+        this.node.setWorldPosition(position);
+    }
+
     public setShipParent(parent: Node): void {
         this.node.setParent(parent);
+    }
+
+    public setParentCanvas(parentCanvas: Node): void {
+        this.node.setParent(parentCanvas);
     }
 }
 

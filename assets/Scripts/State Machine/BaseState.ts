@@ -4,12 +4,14 @@ const { ccclass, property } = _decorator;
 @ccclass('BaseState')
 export abstract class BaseState {
 
+    protected stateTimer: number = 0;
+
     public enter() { }
     public exit() { }
-    public touchStart() { }
-    public touchMove() { }
-    public touchEnd() { }
-    public touchCancel() { }
+    public touchStart(event) { }
+    public touchMove(event) { }
+    public touchEnd(event) { }
+    public touchCancel(event) { }
 }
 
 

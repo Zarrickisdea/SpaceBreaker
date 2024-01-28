@@ -1,14 +1,9 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator } from 'cc';
+import { PlayerBaseState } from './PlayerBaseState';
 const { ccclass, property } = _decorator;
 
 @ccclass('PlayerFireState')
-export class PlayerFireState extends Component {
-    start() {
-
-    }
-
-    update(deltaTime: number) {
-        
-    }
+export class PlayerFireState extends PlayerBaseState {
 }
-
+
+
