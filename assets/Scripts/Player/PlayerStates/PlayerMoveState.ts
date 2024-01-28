@@ -31,7 +31,7 @@ export class PlayerMoveState extends PlayerBaseState {
     }
 
     private fireBullet(): void {
-        if (this.stateTimer > 0.5) {
+        if (this.stateTimer > 0.75) {
             this.controller.getBulletSpawner().getBullet().FireBullet();
             this.stateTimer = 0;
         }

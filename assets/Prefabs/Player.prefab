@@ -161,7 +161,7 @@
       "__expectedType__": "cc.Prefab"
     },
     "speed": 10,
-    "poolSize": 10,
+    "poolSize": 5,
     "_id": ""
   },
   {

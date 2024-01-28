@@ -37,7 +37,7 @@ export class BulletView extends Component {
 
     public firingBullet(): void {
         tween(this.node)
-            .by(0.5, { worldPosition: new Vec3(0, this.bulletController.getParentCanvasUI().height, 0) })
+            .to(1, { position: new Vec3(this.node.position.x, this.bulletController.getParentCanvasUI().height, 0), }, { easing: 'linear'})
             .call(() => this.bulletController.returnBulletToPool())
             .start();
     }
@@ -46,6 +46,9 @@ export class BulletView extends Component {
     }
 
     protected onDisable(): void {
+    }
+
+    protected update(dt: number): void {
     }
 }
 

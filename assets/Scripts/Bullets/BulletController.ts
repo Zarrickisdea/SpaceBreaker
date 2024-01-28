@@ -28,6 +28,7 @@ export class BulletController {
 
     public FireBullet(): void {
         this.bulletView.setParent(this.getParentCanvas());
+        this.bulletView.setPosition(this.parentBulletSpawner.node.parent.position);
         this.bulletView.setAsActive();
         this.bulletView.firingBullet();
     }
@@ -36,7 +37,6 @@ export class BulletController {
         this.bulletView.setParent(this.parentBulletSpawner.node);
         this.bulletView.setPosition(this.parentBulletSpawner.node.position);
         this.parentBulletSpawner.returnBulletToPool(this);
-        console.log("Bullet returned to pool");
         this.bulletView.setAsInactive();
     }
 

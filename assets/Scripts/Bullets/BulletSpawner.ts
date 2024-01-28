@@ -18,16 +18,12 @@ export class BulletSpawner extends Component {
     private bulletPool: BulletController[] = [];
 
     public getBullet(): BulletController {
-        console.log("Searching for available bullet in pool...");
         for (let i = 0; i < this.bulletPool.length; i++) {
             if (!this.bulletPool[i].getBulletView().getIsAlive()) {
-                console.log("Bullet found in pool and inactive");
                 return this.bulletPool[i];
             }
         }
     
-        console.log("No available bullets in pool. Instantiating a new one.");
-
         const newBulletController = this.spawnBullet();
     
         return newBulletController;
