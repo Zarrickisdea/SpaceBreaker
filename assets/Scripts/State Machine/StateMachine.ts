@@ -19,6 +19,10 @@ export class StateMachine {
         this.currentState = newState;
         this.currentState.enter();
     }
+
+    public getCurrentState(): BaseState {
+        return this.currentState;
+    }
 }
 
 

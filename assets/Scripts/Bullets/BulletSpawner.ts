@@ -17,31 +17,44 @@ export class BulletSpawner extends Component {
 
     private bulletPool: BulletController[] = [];
 
-    private spawnBullet(): void {
-        const bulletModel = new BulletModel(this.speed);
-        const bulletController = new BulletController(this.bulletPrefab, bulletModel);
-        bulletController.getBulletView().setParent(this.node);
-        bulletController.getBulletView().setAsInactive();
-        this.bulletPool.push(bulletController);
+    public getBullet(): BulletController {
+        console.log("Searching for available bullet in pool...");
+        for (let i = 0; i < this.bulletPool.length; i++) {
+            if (!this.bulletPool[i].getBulletView().getIsAlive()) {
+                console.log("Bullet found in pool and inactive");
+                return this.bulletPool[i];
+            }
+        }
+    
+        console.log("No available bullets in pool. Instantiating a new one.");
+
+        const newBulletController = this.spawnBullet();
+    
+        return newBulletController;
     }
 
-    protected start(): void {
+    public returnBulletToPool(bulletController: BulletController): void {
+        this.bulletPool.push(bulletController);
+    }
+    
+    public getPoolSize(): number {
+        return this.poolSize;
+    }
+
+    protected onLoad(): void {
         for (let i = 0; i < this.poolSize; i++) {
             this.spawnBullet();
         }
     }
 
-    public getBullet(): BulletController {
-        for (let i = 0; i < this.bulletPool.length; i++) {
-            if (!this.bulletPool[i].getBulletView().getIsAlive()) {
-                return this.bulletPool[i];
-            }
-        }
-        return null;
-    }
-
-    public getPoolSize(): number {
-        return this.poolSize;
+    private spawnBullet(): BulletController {
+        const bulletModel = new BulletModel(this.speed);
+        const bulletController = new BulletController(this.bulletPrefab, bulletModel);
+        bulletController.getBulletView().setParent(this.node);
+        bulletController.setParentSpawner(this);
+        bulletController.getBulletView().setAsInactive();
+        this.bulletPool.push(bulletController);
+        return bulletController;
     }
 }
 

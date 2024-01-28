@@ -1,6 +1,8 @@
 import { _decorator, Component, director, game, instantiate, Node, NodeEventType, Prefab, Vec3 } from 'cc';
 import { PlayerModel } from './PlayerModel';
 import { PlayerView } from './PlayerView';
+import { StateMachine } from '../State Machine/StateMachine';
+import { BulletSpawner } from '../Bullets/BulletSpawner';
 const { ccclass, property } = _decorator;
 
 @ccclass('PlayerController')
@@ -8,8 +10,7 @@ export class PlayerController {
 
     private playerModel: PlayerModel = null;
     private playerView: PlayerView = null;
-    private isTouchActive: boolean = false;
-    private touchHoldTimer: number = 0;
+    private playerStateMachine: StateMachine = null;
 
     constructor(playerViewPrefab: Prefab, playerModel: PlayerModel) {
         this.playerModel = playerModel;
@@ -22,59 +23,45 @@ export class PlayerController {
             }
         }
 
+        this.playerModel.setPlayerController(this);
+        this.playerModel.initializeStates();
+
+        this.playerStateMachine = new StateMachine();
+        this.playerStateMachine.initialize(this.playerModel.getCurrentState());
+
         this.playerView.setPlayerController(this);
     }
 
-    public IsTouchActive(): boolean {
-        return this.isTouchActive;
-    }
-
     public onTouchStart(event) {
-        this.isTouchActive = true;
-        this.touchHoldTimer = 0;
-        // this.onTouchHoldUpdate();
+        this.playerStateMachine.getCurrentState().touchStart(event);
     }
 
     public onTouchEnd(event) {
-        this.isTouchActive = false;
-        this.touchHoldTimer = 0;
+        this.playerStateMachine.getCurrentState().touchEnd(event);
     }
 
     public onTouchMove(event) {
-        this.isTouchActive = true;
-        if (this.isTouchActive) {
-            this.MovePlayer(event);
-            // this.onTouchHoldUpdate();
-        }
+        this.playerStateMachine.getCurrentState().touchMove(event);
     }
 
     public onTouchCancel(event) {
-        this.isTouchActive = false;
-        this.touchHoldTimer = 0;
-    }
-
-    private onTouchHoldUpdate() {
-        if (this.isTouchActive) {
-            this.touchHoldTimer += game.deltaTime;
-            if (this.touchHoldTimer > 0.5) {
-                this.Fire();
-            }
-        }
+        this.playerStateMachine.getCurrentState().touchCancel(event);
     }
 
     public getPlayerView(): PlayerView {
         return this.playerView;
     }
 
-    public Fire() {
-        console.log("Fire");
+    public getPlayerModel(): PlayerModel {
+        return this.playerModel;
     }
 
-    public MovePlayer(event) {
-        let deltaX = event.touch.getUILocationX();
-        let deltaY = event.touch.getUILocationY();
-        let newPos = new Vec3(deltaX, deltaY, 0);
-        this.playerView.setPlayerWorldPosition(newPos);
+    public getBulletSpawner(): BulletSpawner{
+        return this.playerView.getBulletSpawner();
+    }
+
+    public changeState(PlayerBaseState) {
+        this.playerStateMachine.changeState(PlayerBaseState);
     }
 
     private attachTouchEvents(): void {
@@ -88,7 +75,7 @@ export class PlayerController {
         for (const event of touchEvents) {
             this.playerView.node.on(event.eventType, event.handler, this);
         }
-    }   
+    }
 }
 
 
