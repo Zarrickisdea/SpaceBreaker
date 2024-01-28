@@ -1,4 +1,4 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator } from 'cc';
 import { PlayerBaseState } from './PlayerBaseState';
 const { ccclass, property } = _decorator;
 
@@ -9,7 +9,7 @@ export class PlayerIdleState extends PlayerBaseState {
         super.enter();
     }
 
-    public touchStart(event): void {
+    public touchMove(event): void {
         this.controller.changeState(this.controller.getPlayerModel().getState('Move'));
     }
 

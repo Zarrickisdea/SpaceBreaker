@@ -44,6 +44,14 @@ export class PlayerView extends Component {
     protected onLoad() {
         this.bulletSpawner = this.bulletSpawnerNode.getComponent(BulletSpawner);
     }
+
+    protected start(): void {
+        this.schedule( () => {
+            if (this.playerController.getTouchState()) {
+                this.playerController.fireBullet();
+            }
+        }, this.playerController.getPlayerModel().getShootInterval());
+    }
 }
 
 

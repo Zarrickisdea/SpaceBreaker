@@ -15,6 +15,7 @@ export class ShipController {
         if (shipPrefab) {
             this.shipView = shipPrefab.getComponent(ShipView);
         }
+        this.shipModel.setShipController(this);
         this.shipView.setShipController(this);
     }
 

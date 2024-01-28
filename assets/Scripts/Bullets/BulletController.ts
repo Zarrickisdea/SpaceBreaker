@@ -1,4 +1,4 @@
-import { _decorator, Component, instantiate, Node, Prefab, UITransform } from 'cc';
+import { _decorator, instantiate, Node, Prefab, UITransform } from 'cc';
 import { BulletModel } from './BulletModel';
 import { BulletView } from './BulletView';
 import { BulletSpawner } from './BulletSpawner';

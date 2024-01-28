@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "bullet0",
+    "_name": "EnemyBullet",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_native": "",
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "bullet0",
+    "_name": "EnemyBullet",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -76,8 +76,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 16,
-      "height": 30
+      "width": 20,
+      "height": 20
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -113,7 +113,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "e746c1a0-46ed-4a06-a65f-34978dbdd929@f9941",
+      "__uuid__": "f9a0ad27-4547-4f97-9b9f-03c9ef70d2a4@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -162,6 +162,7 @@
       "__id__": 0
     },
     "fileId": "7bzyzwiftODIA6KtLsR7Zf",
+    "instance": null,
     "targetOverrides": null
   }
 ]

@@ -1,4 +1,4 @@
-import { Component, _decorator } from 'cc';
+import { _decorator } from 'cc';
 import { PlayerIdleState } from './PlayerStates/PlayerIdleState';
 import { PlayerMoveState } from './PlayerStates/PlayerMoveState';
 import { PlayerController } from './PlayerController';
@@ -13,6 +13,7 @@ export class PlayerModel {
     private speed: number = 0;
     private isPoweredUp: boolean = false;
     private powerUpDuration: number = 0;
+    private shootInterval: number = 0;
 
     private playerController: PlayerController = null;
 
@@ -20,10 +21,11 @@ export class PlayerModel {
     private playerMoveState: PlayerMoveState = null;
     private currentState: PlayerBaseState = null;
 
-    constructor(hitsToKill: number, damage: number, speed: number) {
+    constructor(hitsToKill: number, damage: number, speed: number, shootInterval: number) {
         this.hitsToKill = hitsToKill;
         this.damage = damage;
         this.speed = speed;
+        this.shootInterval = shootInterval;
         this.isPoweredUp = false;
         this.powerUpDuration = 0;
         this.isDead = false;
@@ -97,6 +99,18 @@ export class PlayerModel {
 
     public setPowerUpDuration(powerUpDuration: number): void {
         this.powerUpDuration = powerUpDuration;
+    }
+
+    public getShootInterval(): number {
+        return this.shootInterval;
+    }
+
+    public setShootInterval(shootInterval: number): void {
+        if (shootInterval >= 0 && shootInterval <= 1) {
+            this.shootInterval = shootInterval;
+        } else {
+            console.warn("Invalid shootInterval value. It should be between 0 and 1.");
+        }
     }
 
     public setPlayerController(playerController: PlayerController): void {

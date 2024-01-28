@@ -1,4 +1,4 @@
-import { _decorator, Component, director, game, instantiate, Node, NodeEventType, Prefab, Vec3 } from 'cc';
+import { _decorator, instantiate, NodeEventType, Prefab } from 'cc';
 import { PlayerModel } from './PlayerModel';
 import { PlayerView } from './PlayerView';
 import { StateMachine } from '../State Machine/StateMachine';
@@ -11,6 +11,8 @@ export class PlayerController {
     private playerModel: PlayerModel = null;
     private playerView: PlayerView = null;
     private playerStateMachine: StateMachine = null;
+
+    private isTouching: boolean = false;
 
     constructor(playerViewPrefab: Prefab, playerModel: PlayerModel) {
         this.playerModel = playerModel;
@@ -33,18 +35,22 @@ export class PlayerController {
     }
 
     public onTouchStart(event) {
+        this.isTouching = true;
         this.playerStateMachine.getCurrentState().touchStart(event);
     }
 
     public onTouchEnd(event) {
+        this.isTouching = false;
         this.playerStateMachine.getCurrentState().touchEnd(event);
     }
 
     public onTouchMove(event) {
+        this.isTouching = true;
         this.playerStateMachine.getCurrentState().touchMove(event);
     }
 
     public onTouchCancel(event) {
+        this.isTouching = false;
         this.playerStateMachine.getCurrentState().touchCancel(event);
     }
 
@@ -60,8 +66,16 @@ export class PlayerController {
         return this.playerView.getBulletSpawner();
     }
 
+    public getTouchState(): boolean {
+        return this.isTouching;
+    }
+
     public changeState(PlayerBaseState) {
         this.playerStateMachine.changeState(PlayerBaseState);
+    }
+
+    public fireBullet(): void {
+        this.playerView.getBulletSpawner().getBullet().FireBullet();
     }
 
     private attachTouchEvents(): void {
