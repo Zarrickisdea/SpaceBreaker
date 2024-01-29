@@ -37,9 +37,10 @@ export class BulletView extends Component {
         this.node.setParent(parent);
     }
 
-    public firingBullet(direction: number): void {
+    public firingBullet(direction: number, tweenDuration: number, easingFunction: string): void {
+        // const duration = tweenDuration !== undefined ? tweenDuration : 1;
         this.firingTween = tween(this.node)
-            .to(1, { position: new Vec3(this.node.position.x, direction * this.bulletController.getParentCanvasUI().height, 0), }, { easing: 'linear'})
+            .to(tweenDuration, { position: new Vec3(this.node.position.x, direction * this.bulletController.getParentCanvasUI().height, 0), }, { easing: easingFunction.toString()})
             .call(() => this.bulletController.returnBulletToPool())
             .start();
     }

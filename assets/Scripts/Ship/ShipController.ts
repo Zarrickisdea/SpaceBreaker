@@ -41,7 +41,7 @@ export class ShipController {
     }
 
     public fireBullet(): void {
-        this.shipView.getBulletSpawner().getBullet().FireBullet(this.direction);
+        this.shipView.getBulletSpawner().getBullet().FireBullet(this.direction, 2, 'expoIn');
     }
 
     public changeState(newState: string): void {

@@ -29,11 +29,11 @@ export class BulletController {
         return this.bulletView;
     }
 
-    public FireBullet(direction: number): void {
+    public FireBullet(direction: number, tweenDuration?: number, easingFunction? : string): void {
         this.bulletView.setParent(this.getParentCanvas());
         this.bulletView.setWorldPosition(this.parentBulletSpawner.node.parent.worldPosition);
         this.bulletView.setAsActive();
-        this.bulletView.firingBullet(direction);
+        this.bulletView.firingBullet(direction, tweenDuration? tweenDuration : 1, easingFunction? easingFunction : 'linear');
     }
 
     public returnBulletToPool(): void {
