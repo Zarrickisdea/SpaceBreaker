@@ -1,12 +1,20 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator } from 'cc';
 import { ShipController } from './ShipController';
+import { ShipIdleState } from './ShipStates/ShipIdleState';
+import { ShipFireState } from './ShipStates/ShipFireState';
+import { ShipBaseState } from './ShipStates/ShipBaseState';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShipModel')
 export class ShipModel {
 
     private hitsToKill: number = 0;
+
     private shipController: ShipController = null;
+
+    private shipIdleState: ShipIdleState = null;
+    private shipDeadState: ShipFireState = null;
+    private currentState: ShipBaseState = null;
 
     constructor(hitsToKill: number) {
         this.hitsToKill = hitsToKill;
@@ -25,7 +33,23 @@ export class ShipModel {
     }
 
     public initializeStates(): void {
-        
+        this.shipIdleState = new ShipIdleState(this.shipController);
+        this.shipDeadState = new ShipFireState(this.shipController);
+    }
+
+    public getCurrentState(): ShipBaseState {
+        return this.currentState;
+    }
+
+    public getState(stateName: string): ShipBaseState {
+        switch (stateName) {
+            case 'Idle':
+                return this.shipIdleState;
+            case 'Fire':
+                return this.shipDeadState;
+            default:
+                return null;
+        }
     }
 }
 

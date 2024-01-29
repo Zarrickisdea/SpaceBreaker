@@ -22,6 +22,11 @@ export class PlayerBaseState extends BaseState {
         super.exit();
         this.stateTimer = 0;
     }
+
+    public touchStart(event) { }
+    public touchMove(event) { }
+    public touchEnd(event) { }
+    public touchCancel(event) { }
 }
 
 

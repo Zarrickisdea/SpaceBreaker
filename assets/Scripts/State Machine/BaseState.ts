@@ -8,10 +8,6 @@ export abstract class BaseState {
 
     public enter() { }
     public exit() { }
-    public touchStart(event) { }
-    public touchMove(event) { }
-    public touchEnd(event) { }
-    public touchCancel(event) { }
 }
 
 

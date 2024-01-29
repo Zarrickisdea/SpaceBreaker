@@ -13,6 +13,7 @@ export class PlayerController {
     private playerStateMachine: StateMachine = null;
 
     private isTouching: boolean = false;
+    private direction: number = 0;
 
     constructor(playerViewPrefab: Prefab, playerModel: PlayerModel) {
         this.playerModel = playerModel;
@@ -32,6 +33,8 @@ export class PlayerController {
         this.playerStateMachine.initialize(this.playerModel.getCurrentState());
 
         this.playerView.setPlayerController(this);
+
+        this.direction = 1;
     }
 
     public onTouchStart(event) {
@@ -75,7 +78,7 @@ export class PlayerController {
     }
 
     public fireBullet(): void {
-        this.playerView.getBulletSpawner().getBullet().FireBullet();
+        this.playerView.getBulletSpawner().getBullet().FireBullet(this.direction);
     }
 
     private attachTouchEvents(): void {

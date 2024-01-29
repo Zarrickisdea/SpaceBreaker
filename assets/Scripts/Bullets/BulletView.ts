@@ -7,6 +7,8 @@ export class BulletView extends Component {
 
     private bulletController: BulletController = null;
 
+    private firingTween: any = null;
+
     public setBulletController(bulletController: BulletController): void {
         this.bulletController = bulletController;
     }
@@ -35,20 +37,21 @@ export class BulletView extends Component {
         this.node.setParent(parent);
     }
 
-    public firingBullet(): void {
-        tween(this.node)
-            .to(1, { position: new Vec3(this.node.position.x, this.bulletController.getParentCanvasUI().height, 0), }, { easing: 'linear'})
+    public firingBullet(direction: number): void {
+        this.firingTween = tween(this.node)
+            .to(1, { position: new Vec3(this.node.position.x, direction * this.bulletController.getParentCanvasUI().height, 0), }, { easing: 'linear'})
             .call(() => this.bulletController.returnBulletToPool())
             .start();
     }
 
-    protected onEnable(): void {
-    }
-
-    protected onDisable(): void {
-    }
-
     protected update(dt: number): void {
+    }
+
+    private cancelFiringTween(): void {
+        if (this.firingTween) {
+            this.firingTween.stop();
+            this.firingTween = null;
+        }
     }
 }
 
