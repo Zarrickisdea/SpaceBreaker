@@ -7,12 +7,18 @@ export class ShipIdleState extends ShipBaseState {
 
     public enter(): void {
         super.enter();
-        console.log('ShipIdleState Enter');
+        this.stateTimer = this.controller.getShipModel().getRandomIdleTime();
+    }
+
+    public update(deltaTime: number): void {
+        super.update(deltaTime);
+        if (this.stateTimer <= 0) {
+            this.controller.changeState('Fire');
+        }
     }
 
     public exit(): void {
         super.exit();
-        console.log('ShipIdleState Exit');
     }
 }
 

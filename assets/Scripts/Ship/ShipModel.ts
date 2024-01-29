@@ -10,6 +10,12 @@ export class ShipModel {
 
     private hitsToKill: number = 0;
 
+    private minIdleTime: number = 1;
+    private maxIdleTime: number = 2;
+
+    private minFireCooldown: number = 1;
+    private maxFireCooldown: number = 3;
+
     private shipController: ShipController = null;
 
     private shipIdleState: ShipIdleState = null;
@@ -26,6 +32,14 @@ export class ShipModel {
 
     public setHitsToKill(hitsToKill: number): void {
         this.hitsToKill = hitsToKill;
+    }
+
+    public getRandomIdleTime(): number {
+        return Math.random() * (this.maxIdleTime - this.minIdleTime) + this.minIdleTime;
+    }
+
+    public getRandomFireCooldown(): number {
+        return Math.random() * (this.maxFireCooldown - this.minFireCooldown) + this.minFireCooldown;
     }
 
     public setShipController(shipController: ShipController): void {

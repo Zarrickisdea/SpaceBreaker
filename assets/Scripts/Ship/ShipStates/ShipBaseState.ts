@@ -18,6 +18,10 @@ export class ShipBaseState extends BaseState {
         this.stateTimer = 0;
     }
 
+    public update(deltaTime: number): void {
+        this.stateTimer -= deltaTime;
+    }
+
     public exit(): void {
         super.exit();
         this.stateTimer = 0;

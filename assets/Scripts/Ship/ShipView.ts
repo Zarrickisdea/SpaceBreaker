@@ -16,6 +16,10 @@ export class ShipView extends Component {
         this.shipController = shipController;
     }
 
+    public getShipController(): ShipController {
+        return this.shipController;
+    }
+
     public setShipPosition(position: Vec3): void {
         this.node.setPosition(position);
     }
@@ -24,8 +28,8 @@ export class ShipView extends Component {
         this.node.setWorldPosition(position);
     }
 
-    public setShipParent(parent: Node): void {
-        this.node.setParent(parent);
+    public setShipParent(parent: Node, keepWorldTransform?: boolean): void {
+        this.node.setParent(parent, keepWorldTransform);
     }
 
     public setParentCanvas(parentCanvas: Node): void {
@@ -40,7 +44,10 @@ export class ShipView extends Component {
         this.bulletSpawner = this.bulletSpawnerNode.getComponent(BulletSpawner);
     }
 
-    protected start(): void {
+    protected update(dt: number): void {
+        if (this.shipController) {
+            this.shipController.update(dt);
+        }
     }
 }
 

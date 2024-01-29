@@ -31,7 +31,7 @@ export class BulletController {
 
     public FireBullet(direction: number): void {
         this.bulletView.setParent(this.getParentCanvas());
-        this.bulletView.setPosition(this.parentBulletSpawner.node.parent.position);
+        this.bulletView.setWorldPosition(this.parentBulletSpawner.node.parent.worldPosition);
         this.bulletView.setAsActive();
         this.bulletView.firingBullet(direction);
     }

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Prefab, UITransform } from 'cc';
+import { _decorator, Component, Layout, Node, Prefab, UITransform, Vec3 } from 'cc';
 import { ShipController } from './ShipController';
 import { ShipModel } from './ShipModel';
 const { ccclass, property } = _decorator;
@@ -69,8 +69,16 @@ export class ShipSpawner extends Component {
         const hitsToKill = this.getRandomHitsToKill();
         const shipModel = new ShipModel(hitsToKill);
         const shipController = new ShipController(shipViewPrefab, shipModel);
+        this.currentEnemyLayout.getComponent(Layout).updateLayout();
         shipController.getShipView().setShipParent(this.currentEnemyLayout);
-        // shipController.getShipView().setShipPosition(this.node.position);
+        this.currentEnemyLayout.getComponent(Layout).updateLayout();
+        console.log('layout');
+        console.log(shipController.getShipView().node.worldPosition);
+        // let localPosition = shipController.getShipView().node.worldPosition;
+        // shipController.getShipView().setShipParent(this.parentCanvas);
+        // shipController.getShipView().setShipWorldPosition(new Vec3(localPosition.x, localPosition.y, localPosition.z));
+        // console.log('canvas');
+        // console.log(shipController.getShipView().node.worldPosition);
         return shipController;
     }
 

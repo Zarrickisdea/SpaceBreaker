@@ -47,6 +47,10 @@ export class ShipController {
     public changeState(newState: string): void {
         this.shipStateMachine.changeState(this.shipModel.getState(newState));
     }
+
+    public update(deltaTime: number): void {
+        this.shipStateMachine.getCurrentState().update(deltaTime);
+    }
 }
 
 

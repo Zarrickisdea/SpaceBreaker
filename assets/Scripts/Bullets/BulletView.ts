@@ -44,14 +44,7 @@ export class BulletView extends Component {
             .start();
     }
 
-    protected update(dt: number): void {
-    }
-
-    private cancelFiringTween(): void {
-        if (this.firingTween) {
-            this.firingTween.stop();
-            this.firingTween = null;
-        }
+    protected onEnable(): void {
     }
 }
 
