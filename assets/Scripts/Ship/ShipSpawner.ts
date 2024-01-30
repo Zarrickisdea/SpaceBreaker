@@ -86,8 +86,8 @@ export class ShipSpawner extends Component {
         const emptyNode = new Node();
         emptyNode.layer = this.currentEnemyLayout.layer;
         let transform = emptyNode.addComponent(UITransform);
-        transform.height = 48;
-        transform.width = 54;
+        transform.height = 36;
+        transform.width = 72;
         emptyNode.setParent(this.currentEnemyLayout);
         return emptyNode;
     }
