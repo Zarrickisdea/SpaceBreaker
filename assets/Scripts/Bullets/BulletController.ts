@@ -11,7 +11,9 @@ export class BulletController {
     private bulletView: BulletView = null;
     private parentBulletSpawner: BulletSpawner = null;
 
-    constructor(bulletViewPrefab: Prefab, bulletModel: BulletModel) {
+    private parentCanvas: Node = null;
+
+    constructor(bulletViewPrefab: Prefab, bulletModel: BulletModel, parentCanvas: Node) {
         this.bulletModel = bulletModel;
 
         const bulletPrefab = instantiate(bulletViewPrefab);
@@ -20,17 +22,18 @@ export class BulletController {
         }
 
         this.bulletView.setBulletController(this);
+        this.parentCanvas = parentCanvas;
     }
 
     public getBulletView(): BulletView {
         return this.bulletView;
     }
 
-    public FireBullet(): void {
+    public FireBullet(direction: number, tweenDuration?: number, easingFunction? : string): void {
         this.bulletView.setParent(this.getParentCanvas());
-        this.bulletView.setPosition(this.parentBulletSpawner.node.parent.position);
+        this.bulletView.setWorldPosition(this.parentBulletSpawner.node.parent.worldPosition);
         this.bulletView.setAsActive();
-        this.bulletView.firingBullet();
+        this.bulletView.firingBullet(direction, tweenDuration? tweenDuration : 1, easingFunction? easingFunction : 'linear');
     }
 
     public returnBulletToPool(): void {
@@ -45,7 +48,7 @@ export class BulletController {
     }
 
     public getParentCanvas(): Node {
-        return this.parentBulletSpawner.node.parent.parent;
+        return this.parentCanvas;
     }
 
     public getParentCanvasUI(): UITransform {
