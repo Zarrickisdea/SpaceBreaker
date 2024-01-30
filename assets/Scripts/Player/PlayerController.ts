@@ -30,7 +30,7 @@ export class PlayerController {
         this.playerModel.initializeStates();
 
         this.playerStateMachine = new StateMachine();
-        this.playerStateMachine.initialize(this.playerModel.getCurrentState());
+        this.playerStateMachine.initialize(this.playerModel.getState('Idle'));
 
         this.playerView.setPlayerController(this);
 

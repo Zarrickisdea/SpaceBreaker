@@ -72,8 +72,8 @@ export class ShipSpawner extends Component {
         this.currentEnemyLayout.getComponent(Layout).updateLayout();
         shipController.getShipView().setShipParent(this.currentEnemyLayout);
         this.currentEnemyLayout.getComponent(Layout).updateLayout();
-        console.log('layout');
-        console.log(shipController.getShipView().node.worldPosition);
+        // console.log('layout');
+        // console.log(shipController.getShipView().node.worldPosition);
         // let localPosition = shipController.getShipView().node.worldPosition;
         // shipController.getShipView().setShipParent(this.parentCanvas);
         // shipController.getShipView().setShipWorldPosition(new Vec3(localPosition.x, localPosition.y, localPosition.z));
@@ -87,7 +87,7 @@ export class ShipSpawner extends Component {
         emptyNode.layer = this.currentEnemyLayout.layer;
         let transform = emptyNode.addComponent(UITransform);
         transform.height = 48;
-        transform.width = 24;
+        transform.width = 54;
         emptyNode.setParent(this.currentEnemyLayout);
         return emptyNode;
     }

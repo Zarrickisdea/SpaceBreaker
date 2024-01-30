@@ -105,7 +105,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 360,
-      "y": 720,
+      "y": 640,
       "z": 0
     },
     "_lrot": {
@@ -190,7 +190,7 @@
     "_priority": 0,
     "_fov": 39.774,
     "_fovAxis": 1,
-    "_orthoHeight": 720,
+    "_orthoHeight": 640,
     "_near": 0,
     "_far": 1000,
     "_color": {
@@ -283,7 +283,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 2560,
-      "height": 1440
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -392,7 +392,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 720,
-      "height": 1440
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -544,7 +544,7 @@
         "__id__": 17
       }
     ],
-    "numberOfShipsToSpawn": 12,
+    "numberOfShipsToSpawn": 20,
     "_id": "25AS+es5dPtJtKlzCkipUH"
   },
   {
@@ -569,7 +569,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 325,
+      "y": 275,
       "z": 0
     },
     "_lrot": {
@@ -607,8 +607,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 670,
-      "height": 750
+      "width": 650,
+      "height": 650
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -644,7 +644,7 @@
     "_verticalDirection": 1,
     "_horizontalDirection": 0,
     "_constraint": 2,
-    "_constraintNum": 4,
+    "_constraintNum": 8,
     "_affectedByScale": false,
     "_isAlign": false,
     "_id": "8chmSi42BCq7LJOQ7/yFgL"
@@ -671,7 +671,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 325,
+      "y": 275,
       "z": 0
     },
     "_lrot": {
@@ -709,8 +709,8 @@
     "__prefab": null,
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 670,
-      "height": 750
+      "width": 650,
+      "height": 650
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -736,7 +736,7 @@
       "width": 40,
       "height": 40
     },
-    "_startAxis": 0,
+    "_startAxis": 1,
     "_paddingLeft": 0,
     "_paddingRight": 0,
     "_paddingTop": 48,
@@ -746,7 +746,7 @@
     "_verticalDirection": 1,
     "_horizontalDirection": 0,
     "_constraint": 2,
-    "_constraintNum": 4,
+    "_constraintNum": 8,
     "_affectedByScale": false,
     "_isAlign": false,
     "_id": "52j0UoM7JMSK/JzWERiZXU"
@@ -773,7 +773,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -600,
+      "y": -550,
       "z": 0
     },
     "_lrot": {
@@ -854,7 +854,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 720,
-      "height": 1440
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
