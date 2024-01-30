@@ -534,7 +534,7 @@
         "__expectedType__": "cc.Prefab"
       }
     ],
-    "minHitsToKill": 0,
+    "minHitsToKill": 2,
     "maxHitsToKill": 0,
     "enemyLayouts": [
       {
@@ -544,7 +544,7 @@
         "__id__": 17
       }
     ],
-    "numberOfShipsToSpawn": 20,
+    "numberOfShipsToSpawn": 1,
     "_id": "25AS+es5dPtJtKlzCkipUH"
   },
   {
@@ -835,7 +835,6 @@
       "__uuid__": "7290639e-db55-4eca-b6e2-5a8af47066df",
       "__expectedType__": "cc.Prefab"
     },
-    "hitsToKill": 3,
     "damage": 10,
     "speed": 5,
     "shootInterval": 0.25,

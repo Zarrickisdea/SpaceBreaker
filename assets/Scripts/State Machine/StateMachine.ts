@@ -4,14 +4,14 @@ const { ccclass, property } = _decorator;
 
 @ccclass('StateMachine')
 export class StateMachine {
-    private currentState: BaseState = null;
+    private currentState: any = null;
 
-    public initialize(startingState: BaseState) {
+    public initialize(startingState: any) {
         this.currentState = startingState;
         this.currentState.enter();
     }
 
-    public changeState(newState: BaseState) {
+    public changeState(newState: any) {
         if (this.currentState) {
             this.currentState.exit();
         }
@@ -20,7 +20,7 @@ export class StateMachine {
         this.currentState.enter();
     }
 
-    public getCurrentState(): BaseState {
+    public getCurrentState(): any {
         return this.currentState;
     }
 }

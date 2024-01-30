@@ -2,7 +2,7 @@ import { _decorator, Component, Node, Prefab, instantiate } from 'cc';
 import { ShipView } from './ShipView';
 import { ShipModel } from './ShipModel';
 import { StateMachine } from '../State Machine/StateMachine';
-import { ShipIdleState } from './ShipStates/ShipIdleState';
+import { ShipBaseState } from './ShipStates/ShipBaseState';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShipController')
@@ -41,11 +41,24 @@ export class ShipController {
     }
 
     public fireBullet(): void {
-        this.shipView.getBulletSpawner().getBullet().FireBullet(this.direction, 2, 'expoIn');
+        this.shipView.getBulletSpawner().getBullet().FireBullet(this.direction, 3, 'expoIn');
+    }
+
+    public getCurrentState(): ShipBaseState {
+        return this.shipStateMachine.getCurrentState();
     }
 
     public changeState(newState: string): void {
         this.shipStateMachine.changeState(this.shipModel.getState(newState));
+    }
+
+    public onHit(): void {
+        const hitPoints = this.shipModel.getHitsToKill();
+        this.shipModel.setHitsToKill(hitPoints - 1);
+        console.log('ShipController onHit', hitPoints);
+        if (hitPoints <= 0) {
+            this.changeState('Dead');
+        }
     }
 
     public update(deltaTime: number): void {

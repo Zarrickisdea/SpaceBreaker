@@ -20,6 +20,7 @@ export class ShipModel {
 
     private shipIdleState: ShipIdleState = null;
     private shipDeadState: ShipFireState = null;
+    private shipFireState: ShipFireState = null;
     private currentState: ShipBaseState = null;
 
     constructor(hitsToKill: number) {
@@ -49,6 +50,7 @@ export class ShipModel {
     public initializeStates(): void {
         this.shipIdleState = new ShipIdleState(this.shipController);
         this.shipDeadState = new ShipFireState(this.shipController);
+        this.shipFireState = new ShipFireState(this.shipController);
     }
 
     public getCurrentState(): ShipBaseState {
@@ -59,8 +61,10 @@ export class ShipModel {
         switch (stateName) {
             case 'Idle':
                 return this.shipIdleState;
-            case 'Fire':
+            case 'Dead':
                 return this.shipDeadState;
+            case 'Fire':
+                return this.shipFireState;
             default:
                 return null;
         }

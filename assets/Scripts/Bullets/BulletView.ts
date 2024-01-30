@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, tween, Vec3 } from 'cc';
+import { _decorator, Component, Node, RigidBody2D, tween, Vec3 } from 'cc';
 import { BulletController } from './BulletController';
 const { ccclass, property } = _decorator;
 
@@ -37,6 +37,10 @@ export class BulletView extends Component {
         this.node.setParent(parent);
     }
 
+    public getController(): BulletController {
+        return this.bulletController;
+    }
+
     public firingBullet(direction: number, tweenDuration: number, easingFunction: string): void {
         // const duration = tweenDuration !== undefined ? tweenDuration : 1;
         this.firingTween = tween(this.node)
@@ -46,6 +50,12 @@ export class BulletView extends Component {
     }
 
     protected onEnable(): void {
+        this.node.getComponent(RigidBody2D).enabled = true;
+    }
+
+    protected onDisable(): void {
+        this.firingTween = null;
+        this.node.getComponent(RigidBody2D).enabled = false;
     }
 }
 
