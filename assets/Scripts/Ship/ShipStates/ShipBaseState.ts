@@ -26,12 +26,17 @@ export class ShipBaseState extends BaseState {
     public onBeginContact(selfCollider, otherCollider, contact): void {
         console.log('ShipBaseState onBeginContact');
 
-        if (otherCollider.group === PhysicsLayers.pBullet) {
+        if (otherCollider.group === PhysicsLayers.pBullet && selfCollider.group === PhysicsLayers.Enemy) {
+            // this.controller.setViewStatus(false);
             this.controller.onHit();
 
             setTimeout(() => {
                 otherCollider.node.active = false;
             }, 1);
+
+            if (this.controller.checkIfDead()) {
+                this.controller.changeState('Dead');
+            }
         }
     }
 

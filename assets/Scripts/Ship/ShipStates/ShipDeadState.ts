@@ -7,6 +7,7 @@ export class ShipDeadState extends ShipBaseState {
 
     public enter(): void {
         super.enter();
+        this.controller.stopAllStates();
         this.controller.getShipView().playDeadAnimation();
     }
 

@@ -67,7 +67,7 @@ export class ShipSpawner extends Component {
     private spawnShip(): ShipController {
         const shipViewPrefab = this.getRandomShipViewPrefab();
         const hitsToKill = this.getRandomHitsToKill();
-        const shipModel = new ShipModel(hitsToKill);
+        const shipModel = new ShipModel(1);
         const shipController = new ShipController(shipViewPrefab, shipModel);
         this.currentEnemyLayout.getComponent(Layout).updateLayout();
         shipController.getShipView().setShipParent(this.currentEnemyLayout);

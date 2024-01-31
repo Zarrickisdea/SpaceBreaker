@@ -40,6 +40,10 @@ export class ShipController {
         return this.shipModel;
     }
 
+    public setViewStatus(status: boolean): void {
+        this.shipView.node.active = status;
+    }
+
     public fireBullet(): void {
         this.shipView.getBulletSpawner().getBullet().FireBullet(this.direction, 3, 'expoIn');
     }
@@ -52,13 +56,18 @@ export class ShipController {
         this.shipStateMachine.changeState(this.shipModel.getState(newState));
     }
 
+    public stopAllStates(): void {
+        this.shipModel.setStatesInactive();
+    }
+
     public onHit(): void {
-        const hitPoints = this.shipModel.getHitsToKill();
+        let hitPoints = this.shipModel.getHitsToKill();
         this.shipModel.setHitsToKill(hitPoints - 1);
         console.log('ShipController onHit', hitPoints);
-        if (hitPoints <= 0) {
-            this.changeState('Dead');
-        }
+    }
+
+    public checkIfDead(): boolean {
+        return this.shipModel.getHitsToKill() <= 0;
     }
 
     public update(deltaTime: number): void {

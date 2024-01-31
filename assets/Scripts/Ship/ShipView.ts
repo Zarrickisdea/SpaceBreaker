@@ -1,4 +1,4 @@
-import { _decorator, Collider2D, Component, Contact2DType, Node, Vec3, PhysicsSystem2D } from 'cc';
+import { _decorator, Collider2D, Component, Contact2DType, Node, Vec3, PhysicsSystem2D, RigidBody2D } from 'cc';
 import { ShipController } from './ShipController';
 import { BulletSpawner } from '../Bullets/BulletSpawner';
 const { ccclass, property } = _decorator;
@@ -12,6 +12,7 @@ export class ShipView extends Component {
     private shipController: ShipController = null;
     private bulletSpawner: BulletSpawner = null;
     private collider: Collider2D = null;
+    private rb2d: RigidBody2D = null;
 
     public setShipController(shipController: ShipController): void {
         this.shipController = shipController;
@@ -42,22 +43,22 @@ export class ShipView extends Component {
     }
 
     public playDeadAnimation(): void {
+        setTimeout(() => {
         this.node.active = false;
+        }, 1);
     }
 
     protected onLoad(): void {
         this.collider = this.getComponent(Collider2D);
+        this.rb2d = this.getComponent(RigidBody2D);
 
         this.bulletSpawner = this.bulletSpawnerNode.getComponent(BulletSpawner);
     }
 
     protected onEnable(): void {
+        this.rb2d.enabled = true;
         if (this.collider) {
             this.collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
-        }
-
-        if (PhysicsSystem2D.instance) {
-            PhysicsSystem2D.instance.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }
     }
 
@@ -72,12 +73,9 @@ export class ShipView extends Component {
     }
 
     protected onDisable(): void {
+        this.rb2d.enabled = false;
         if (this.collider) {
             this.collider.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
-        }
-
-        if (PhysicsSystem2D.instance) {
-            PhysicsSystem2D.instance.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }
     }
 }

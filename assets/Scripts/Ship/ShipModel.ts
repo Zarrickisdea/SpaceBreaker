@@ -69,6 +69,12 @@ export class ShipModel {
                 return null;
         }
     }
+
+    public setStatesInactive(): void {
+        this.shipIdleState = null;
+        this.shipDeadState = null;
+        this.shipFireState = null;
+    }
 }
 
 

@@ -24,7 +24,7 @@ export class PlayerBaseState extends BaseState {
 
         switch (otherCollider.group) {
             case PhysicsLayers.Enemy:
-                this.controller.changeState(this.controller.getPlayerModel().getState('Dead'));
+                // this.controller.changeState(this.controller.getPlayerModel().getState('Dead'));
                 console.log('PlayerBaseState onBeginContact Enemy');
                 break;
             case PhysicsLayers.eBullet:
