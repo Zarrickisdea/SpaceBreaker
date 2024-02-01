@@ -1,4 +1,4 @@
-import { _decorator, Collider2D, Component, Contact2DType, Node, Vec3, PhysicsSystem2D, RigidBody2D, RichText } from 'cc';
+import { _decorator, Collider2D, Component, Contact2DType, Node, Vec3, PhysicsSystem2D, RigidBody2D, RichText, tween, Vec4, Color } from 'cc';
 import { ShipController } from './ShipController';
 import { BulletSpawner } from '../Bullets/BulletSpawner';
 const { ccclass, property } = _decorator;
@@ -14,6 +14,9 @@ export class ShipView extends Component {
     private collider: Collider2D = null;
     private rb2d: RigidBody2D = null;
     private hitsToKillUI: RichText = null;
+
+    private scoreTween: any = null;
+    private scoreOpacityTween: any = null;
 
     public setShipController(shipController: ShipController): void {
         this.shipController = shipController;
@@ -46,7 +49,18 @@ export class ShipView extends Component {
     }
 
     public updateScoreUI() {
+        if (this.scoreTween && this.scoreOpacityTween) {
+            this.scoreTween.stop();
+            this.scoreOpacityTween.stop();
+            this.scoreTween = null;
+            this.scoreOpacityTween = null;
+        }
         this.hitsToKillUI.string = this.shipController.getHitsToKill().toString();
+
+        this.scoreTween = tween(this.hitsToKillUI)
+        .to(0.5, { fontSize: 50 }, { easing: 'sineOut' })
+        .to(0.5, { fontSize: 30 }, { easing: 'sineIn' })
+        .start();
     }
 
     public playDeadAnimation(): void {
@@ -70,6 +84,7 @@ export class ShipView extends Component {
 
         this.rb2d.enabled = true;
         this.hitsToKillUI.string = this.shipController.getHitsToKill().toString();
+        // this.hitsToKillUI.fontColor = new Color(255, 255, 255, 0);
     }
 
     protected onBeginContact(selfCollider, otherCollider, contact): void {
