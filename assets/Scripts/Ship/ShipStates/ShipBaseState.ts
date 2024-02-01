@@ -24,10 +24,8 @@ export class ShipBaseState extends BaseState {
     }
 
     public onBeginContact(selfCollider, otherCollider, contact): void {
-        console.log('ShipBaseState onBeginContact');
 
         if (otherCollider.group === PhysicsLayers.pBullet && selfCollider.group === PhysicsLayers.Enemy) {
-            // this.controller.setViewStatus(false);
             this.controller.onHit();
 
             setTimeout(() => {
@@ -35,7 +33,7 @@ export class ShipBaseState extends BaseState {
             }, 1);
 
             if (this.controller.checkIfDead()) {
-                this.controller.changeState('Dead');
+                this.controller.changeState(this.controller.getShipModel().getState('Dead'));
             }
         }
     }

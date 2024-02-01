@@ -3,6 +3,7 @@ import { ShipController } from './ShipController';
 import { ShipIdleState } from './ShipStates/ShipIdleState';
 import { ShipFireState } from './ShipStates/ShipFireState';
 import { ShipBaseState } from './ShipStates/ShipBaseState';
+import { ShipDeadState } from './ShipStates/ShipDeadState';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShipModel')
@@ -49,7 +50,7 @@ export class ShipModel {
 
     public initializeStates(): void {
         this.shipIdleState = new ShipIdleState(this.shipController);
-        this.shipDeadState = new ShipFireState(this.shipController);
+        this.shipDeadState = new ShipDeadState(this.shipController);
         this.shipFireState = new ShipFireState(this.shipController);
     }
 

@@ -35,8 +35,6 @@ export class PlayerModel {
         this.playerIdleState = new PlayerIdleState(this.playerController);
         this.playerMoveState = new PlayerMoveState(this.playerController);
         this.playerDeadState = new PlayerDeadState(this.playerController);
-        
-        // this.currentState = this.playerIdleState;
     }
 
     public getCurrentState(): PlayerBaseState {

@@ -52,8 +52,8 @@ export class ShipController {
         return this.shipStateMachine.getCurrentState();
     }
 
-    public changeState(newState: string): void {
-        this.shipStateMachine.changeState(this.shipModel.getState(newState));
+    public changeState(newState: ShipBaseState): void {
+        this.shipStateMachine.changeState(newState);
     }
 
     public stopAllStates(): void {
@@ -63,7 +63,6 @@ export class ShipController {
     public onHit(): void {
         let hitPoints = this.shipModel.getHitsToKill();
         this.shipModel.setHitsToKill(hitPoints - 1);
-        console.log('ShipController onHit', hitPoints);
     }
 
     public checkIfDead(): boolean {

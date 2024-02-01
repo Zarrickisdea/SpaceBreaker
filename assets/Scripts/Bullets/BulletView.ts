@@ -6,6 +6,7 @@ const { ccclass, property } = _decorator;
 export class BulletView extends Component {
 
     private bulletController: BulletController = null;
+    private rb2d: RigidBody2D = null;
 
     private firingTween: any = null;
 
@@ -44,21 +45,24 @@ export class BulletView extends Component {
     }
 
     public firingBullet(direction: number, tweenDuration: number, easingFunction: string): void {
-        // const duration = tweenDuration !== undefined ? tweenDuration : 1;
         this.firingTween = tween(this.node)
-            .to(tweenDuration, { position: new Vec3(this.node.position.x, direction * (this.bulletController.getParentCanvasUI().height / 2), 0), }, { easing: easingFunction})
+            .to(tweenDuration, { position: new Vec3(this.node.position.x, direction * (this.bulletController.getParentCanvasUI().height / 2), 0), }, { easing: easingFunction })
             .call(() => {this.setAsInactive();})
             .start();
     }
 
+    protected onLoad(): void {
+        this.rb2d = this.getComponent(RigidBody2D);
+    }
+
     protected onEnable(): void {
-        // this.node.getComponent(RigidBody2D).enabled = true;
+        this.rb2d.enabled = true;
     }
 
     protected onDisable(): void {
         this.bulletController.returnBulletToPool();
         this.cancelFiringTween();
-        // this.node.getComponent(RigidBody2D).enabled = false;
+        this.rb2d.enabled = false;
     }
 
     private cancelFiringTween(): void {

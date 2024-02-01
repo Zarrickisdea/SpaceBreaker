@@ -534,8 +534,8 @@
         "__expectedType__": "cc.Prefab"
       }
     ],
-    "minHitsToKill": 2,
-    "maxHitsToKill": 0,
+    "minHitsToKill": 3,
+    "maxHitsToKill": 6,
     "enemyLayouts": [
       {
         "__id__": 14
@@ -544,7 +544,7 @@
         "__id__": 17
       }
     ],
-    "numberOfShipsToSpawn": 20,
+    "numberOfShipsToSpawn": 1,
     "_id": "25AS+es5dPtJtKlzCkipUH"
   },
   {
@@ -773,7 +773,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": -550,
+      "y": 374.624,
       "z": 0
     },
     "_lrot": {

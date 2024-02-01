@@ -18,7 +18,7 @@ export class ShipFireState extends ShipBaseState {
     public update(deltaTime: number): void {
         super.update(deltaTime);
         if (this.stateTimer <= 0) {
-            this.controller.changeState('Idle');
+            this.controller.changeState(this.controller.getShipModel().getState('Idle'));
         }
     }
 
