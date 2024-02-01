@@ -23,6 +23,10 @@ export class StateMachine {
     public getCurrentState(): any {
         return this.currentState;
     }
+
+    public SetEventListeners(any: any): void {
+        this.currentState.SetEventListeners(any);
+    }
 }
 
 

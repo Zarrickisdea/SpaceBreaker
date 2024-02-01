@@ -1,15 +1,17 @@
-import { _decorator, Component, Node, Prefab, instantiate } from 'cc';
+import { _decorator, Component, Node, Prefab, instantiate, EventTarget, director } from 'cc';
 import { ShipView } from './ShipView';
 import { ShipModel } from './ShipModel';
 import { StateMachine } from '../State Machine/StateMachine';
 import { ShipBaseState } from './ShipStates/ShipBaseState';
-const { ccclass, property } = _decorator;
+import { ShipSpawner } from './ShipSpawner';
+const { ccclass, property } = _decorator;;
 
 @ccclass('ShipController')
 export class ShipController {
 
     private shipView: ShipView = null;
     private shipModel: ShipModel = null;
+    private shipSpawner: ShipSpawner = null;
 
     private shipStateMachine: StateMachine = null;
 
@@ -40,12 +42,25 @@ export class ShipController {
         return this.shipModel;
     }
 
+    public getShipSpawner(): ShipSpawner {
+        return this.shipSpawner;
+    }
+
+    public setShipSpawner(shipSpawner: ShipSpawner): void {
+        this.shipSpawner = shipSpawner;
+    }
+
     public setViewStatus(status: boolean): void {
         this.shipView.node.active = status;
     }
 
     public fireBullet(): void {
-        this.shipView.getBulletSpawner().getBullet().FireBullet(this.direction, 3, 'expoIn');
+        // console.log('Firing bullet from: ' + this.shipView.node.name);
+        this.shipView.getBulletSpawner().getBullet().FireBullet(this.direction, 3, 'fade');
+    }
+
+    public ShipDestroyedEvent(): void {
+        this.shipSpawner.onShipDestroyed();
     }
 
     public getCurrentState(): ShipBaseState {

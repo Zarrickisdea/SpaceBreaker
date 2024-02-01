@@ -83,6 +83,7 @@ export class PlayerController {
     }
 
     public fireBullet(): void {
+        // console.log('Firing bullet from:' + this.playerView.node.name);
         this.playerView.getBulletSpawner().getBullet().FireBullet(this.direction);
     }
 

@@ -4,18 +4,18 @@ const { ccclass, property } = _decorator;
 @ccclass('BulletModel')
 export class BulletModel {
 
-    private speed: number = 0
+    private tweenDuration: number = 0
 
-    constructor(speed: number) {
-        this.speed = speed;
+    constructor(tweenDuration: number) {
+        this.tweenDuration = tweenDuration;
     }
 
-    public getSpeed(): number {
-        return this.speed;
+    public getTweenDuration(): number {
+        return this.tweenDuration;
     }
 
-    public setSpeed(speed: number) {
-        this.speed = speed;
+    public setTweenDuration(tweenDuration: number) {
+        this.tweenDuration = tweenDuration;
     }
 }
 

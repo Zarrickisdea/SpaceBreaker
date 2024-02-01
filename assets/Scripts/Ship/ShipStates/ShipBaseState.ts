@@ -2,6 +2,7 @@ import { _decorator } from 'cc';
 import { ShipController } from '../ShipController';
 import { BaseState } from '../../State Machine/BaseState';
 import { PhysicsLayers } from '../../Constants/GameConstants';
+import { BulletView } from '../../Bullets/BulletView';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShipBaseState')
@@ -28,9 +29,13 @@ export class ShipBaseState extends BaseState {
         if (otherCollider.group === PhysicsLayers.pBullet && selfCollider.group === PhysicsLayers.Enemy) {
             this.controller.onHit();
 
-            setTimeout(() => {
-                otherCollider.node.active = false;
-            }, 1);
+            let bulletView: BulletView = otherCollider.node.getComponent(BulletView);
+
+            if (bulletView) {
+                setTimeout(() => {
+                    bulletView.setAsInactive();
+                }, 1);
+            }
 
             if (this.controller.checkIfDead()) {
                 this.controller.changeState(this.controller.getShipModel().getState('Dead'));

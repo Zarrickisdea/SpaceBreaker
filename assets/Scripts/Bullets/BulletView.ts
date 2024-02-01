@@ -34,6 +34,12 @@ export class BulletView extends Component {
 
     public setAsInactive(): void {
         this.node.active = false;
+        this.bulletController.returnBulletToPool();
+        this.cancelFiringTween(); 
+    }
+
+    public destroySelf(): void {
+        this.node.destroy();
     }
 
     public setParent(parent: Node): void {
@@ -46,7 +52,7 @@ export class BulletView extends Component {
 
     public firingBullet(direction: number, tweenDuration: number, easingFunction: string): void {
         this.firingTween = tween(this.node)
-            .to(tweenDuration, { position: new Vec3(this.node.position.x, direction * (this.bulletController.getParentCanvasUI().height / 2), 0), }, { easing: easingFunction })
+            .to(tweenDuration, { position: new Vec3(this.node.position.x, direction * (this.bulletController.getParentCanvasUI().height / 1.5), 0), }, { easing: easingFunction })
             .call(() => {this.setAsInactive();})
             .start();
     }
@@ -60,8 +66,6 @@ export class BulletView extends Component {
     }
 
     protected onDisable(): void {
-        this.bulletController.returnBulletToPool();
-        this.cancelFiringTween();
         this.rb2d.enabled = false;
     }
 

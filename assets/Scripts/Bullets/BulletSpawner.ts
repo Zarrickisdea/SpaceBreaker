@@ -10,7 +10,7 @@ export class BulletSpawner extends Component {
     private bulletPrefab: Prefab = null;
 
     @property
-    private speed: number = 0;
+    private tweenDuration: number = 0;
 
     @property
     private poolSize: number = 0;
@@ -19,19 +19,22 @@ export class BulletSpawner extends Component {
     private parentCanvas: Node = null;
 
     public getBullet(): BulletController {
-        for (let i = 0; i < this.bulletPool.length; i++) {
-            if (!this.bulletPool[i].getBulletView().getIsAlive()) {
-                return this.bulletPool[i];
-            }
+        // console.log('getting bullet ' + this.bulletPool.length);
+        if (this.bulletPool.length === 0) {
+            return this.spawnBullet();
         }
-    
-        const newBulletController = this.spawnBullet();
-    
-        return newBulletController;
+        return this.bulletPool.pop();
     }
 
     public returnBulletToPool(bulletController: BulletController): void {
+        // console.log('returning bullet ' + this.bulletPool.length + ' to ' + this.node.parent.name);
         this.bulletPool.push(bulletController);
+    }
+
+    public destroyAllBullets(): void {
+        this.bulletPool.forEach(bullet => {
+            bullet.getBulletView().destroySelf();
+        });
     }
     
     public getPoolSize(): number {
@@ -47,7 +50,7 @@ export class BulletSpawner extends Component {
     }
 
     private spawnBullet(): BulletController {
-        const bulletModel = new BulletModel(this.speed);
+        const bulletModel = new BulletModel(this.tweenDuration);
         const bulletController = new BulletController(this.bulletPrefab, bulletModel, this.parentCanvas);
         bulletController.getBulletView().setParent(this.node);
         bulletController.setParentSpawner(this);

@@ -74,6 +74,7 @@ export class ShipView extends Component {
 
     protected onDisable(): void {
         this.rb2d.enabled = false;
+        this.bulletSpawner.destroyAllBullets();
         if (this.collider) {
             this.collider.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }

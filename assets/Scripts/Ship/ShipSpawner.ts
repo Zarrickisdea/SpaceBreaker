@@ -1,4 +1,4 @@
-import { _decorator, Component, Layout, Node, Prefab, UITransform, Vec3 } from 'cc';
+import { _decorator, Component, Layout, Node, Prefab, UITransform, Vec3, EventTarget } from 'cc';
 import { ShipController } from './ShipController';
 import { ShipModel } from './ShipModel';
 const { ccclass, property } = _decorator;
@@ -23,12 +23,28 @@ export class ShipSpawner extends Component {
 
     private parentCanvas: Node = null;
     private currentEnemyLayout: Node = null;
+    private numberOfAliveShips: number = 0;
+
+    public onShipDestroyed(): void {
+        this.numberOfAliveShips--;
+        console.log('ships alive: ' + this.numberOfAliveShips);
+
+        if (this.numberOfAliveShips <= 0) {
+            this.currentEnemyLayout.active = false;
+            this.currentEnemyLayout.removeAllChildren();
+            this.spawnShipsInLayout();
+        }
+    }
 
     protected onLoad(): void {
         this.parentCanvas = this.node.parent;
     }
 
     protected start(): void {
+        this.spawnShipsInLayout();
+    }
+
+    private spawnShipsInLayout() {
         this.currentEnemyLayout = this.spawnEnemyShipLayoutNode();
 
         for (let i = 0; i < this.numberOfShipsToSpawn; i++) {
@@ -38,6 +54,8 @@ export class ShipSpawner extends Component {
             }
             const shipController = this.spawnShip();
         }
+
+        this.numberOfAliveShips = this.numberOfShipsToSpawn;
     }
 
     private getRandomHitsToKill(): number {
@@ -72,13 +90,7 @@ export class ShipSpawner extends Component {
         this.currentEnemyLayout.getComponent(Layout).updateLayout();
         shipController.getShipView().setShipParent(this.currentEnemyLayout);
         this.currentEnemyLayout.getComponent(Layout).updateLayout();
-        // console.log('layout');
-        // console.log(shipController.getShipView().node.worldPosition);
-        // let localPosition = shipController.getShipView().node.worldPosition;
-        // shipController.getShipView().setShipParent(this.parentCanvas);
-        // shipController.getShipView().setShipWorldPosition(new Vec3(localPosition.x, localPosition.y, localPosition.z));
-        // console.log('canvas');
-        // console.log(shipController.getShipView().node.worldPosition);
+        shipController.setShipSpawner(this);
         return shipController;
     }
 

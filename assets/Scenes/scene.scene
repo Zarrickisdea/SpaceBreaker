@@ -544,7 +544,7 @@
         "__id__": 17
       }
     ],
-    "numberOfShipsToSpawn": 1,
+    "numberOfShipsToSpawn": 21,
     "_id": "25AS+es5dPtJtKlzCkipUH"
   },
   {
@@ -773,7 +773,7 @@
     "_lpos": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 374.624,
+      "y": -550,
       "z": 0
     },
     "_lrot": {

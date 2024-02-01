@@ -166,7 +166,7 @@
       "__uuid__": "2e3a63c6-fde5-4683-a521-17f578ffa2be",
       "__expectedType__": "cc.Prefab"
     },
-    "speed": 10,
+    "tweenDuration": 0,
     "poolSize": 10,
     "_id": ""
   },
