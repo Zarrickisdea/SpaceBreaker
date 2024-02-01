@@ -60,11 +60,11 @@ export class PlayerView extends Component {
     }
 
     protected onLoad() {
-        PhysicsSystem2D.instance.debugDrawFlags = EPhysics2DDrawFlags.Aabb |
-            EPhysics2DDrawFlags.Pair |
-            EPhysics2DDrawFlags.CenterOfMass |
-            EPhysics2DDrawFlags.Joint |
-            EPhysics2DDrawFlags.Shape;
+        // PhysicsSystem2D.instance.debugDrawFlags = EPhysics2DDrawFlags.Aabb |
+        //     EPhysics2DDrawFlags.Pair |
+        //     EPhysics2DDrawFlags.CenterOfMass |
+        //     EPhysics2DDrawFlags.Joint |
+        //     EPhysics2DDrawFlags.Shape;
     
         this.collider = this.getComponent(Collider2D);
         this.rb2d = this.getComponent(RigidBody2D);
