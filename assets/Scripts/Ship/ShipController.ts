@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Prefab, instantiate, EventTarget, director } from 'cc';
+import { _decorator, Prefab, instantiate } from 'cc';
 import { ShipView } from './ShipView';
 import { ShipModel } from './ShipModel';
 import { StateMachine } from '../State Machine/StateMachine';
@@ -55,7 +55,6 @@ export class ShipController {
     }
 
     public fireBullet(): void {
-        // console.log('Firing bullet from: ' + this.shipView.node.name);
         this.shipView.getBulletSpawner().getBullet().FireBullet(this.direction, 3, 'fade');
     }
 

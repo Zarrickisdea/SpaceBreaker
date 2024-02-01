@@ -19,7 +19,6 @@ export class BulletSpawner extends Component {
     private parentCanvas: Node = null;
 
     public getBullet(): BulletController {
-        // console.log('getting bullet ' + this.bulletPool.length);
         if (this.bulletPool.length === 0) {
             return this.spawnBullet();
         }

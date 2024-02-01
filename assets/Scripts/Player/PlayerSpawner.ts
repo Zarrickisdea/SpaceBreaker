@@ -1,4 +1,4 @@
-import { _decorator, Component, director, Node, Prefab } from 'cc';
+import { _decorator, Component, Node, Prefab } from 'cc';
 import { PlayerController } from './PlayerController';
 import { PlayerModel } from './PlayerModel';
 const { ccclass, property } = _decorator;

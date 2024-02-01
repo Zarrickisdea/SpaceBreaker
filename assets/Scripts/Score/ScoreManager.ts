@@ -1,4 +1,4 @@
-import { _decorator, Node, Label, RichText } from 'cc';
+import { _decorator, Node } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('ScoreManager')

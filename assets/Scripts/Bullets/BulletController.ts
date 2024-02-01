@@ -30,7 +30,6 @@ export class BulletController {
     }
 
     public FireBullet(direction: number, tweenDuration?: number, easingFunction? : string): void {
-        // console.log('Firing bullet from: ' + this.parentBulletSpawner.node.parent.name);
         this.bulletView.setParent(this.getParentCanvas());
         this.bulletView.setWorldPosition(this.parentBulletSpawner.node.parent.worldPosition);
         this.bulletView.setAsActive(direction, tweenDuration? tweenDuration : 1, easingFunction? easingFunction : 'linear');

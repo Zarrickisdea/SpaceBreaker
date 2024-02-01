@@ -43,9 +43,7 @@ export class BulletView extends Component {
     }
 
     public setParent(parent: Node): void {
-        // console.log('setting parent: ' + parent.name);
         this.node.setParent(parent);
-        // console.log('parent set: ' + this.node.parent.name);
     }
 
     public getController(): BulletController {

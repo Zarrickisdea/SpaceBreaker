@@ -1,4 +1,4 @@
-import { _decorator, Collider2D, Component, Contact2DType, Node, Vec3, PhysicsSystem2D, RigidBody2D, RichText, tween, Vec4, Color } from 'cc';
+import { _decorator, Collider2D, Component, Contact2DType, Node, Vec3, RigidBody2D, RichText, tween } from 'cc';
 import { ShipController } from './ShipController';
 import { BulletSpawner } from '../Bullets/BulletSpawner';
 const { ccclass, property } = _decorator;
@@ -35,9 +35,7 @@ export class ShipView extends Component {
     }
 
     public setShipParent(parent: Node): void {
-        console.log('setting ship parent: ' + parent.name);
         this.node.setParent(parent);
-        console.log('ship parent set: ' + this.node.parent.name);
     }
 
     public setParentCanvas(parentCanvas: Node): void {

@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec3, Collider2D, Contact2DType, PhysicsSystem2D, IPhysics2DContact, EPhysics2DDrawFlags, UITransform, RigidBody2D, Vec2, Rect, director } from 'cc';
+import { _decorator, Component, Node, Vec3, Collider2D, Contact2DType, IPhysics2DContact, UITransform, RigidBody2D, Vec2, Rect, director } from 'cc';
 import { PlayerController } from './PlayerController';
 import { BulletSpawner } from '../Bullets/BulletSpawner';
 const { ccclass, property } = _decorator;
@@ -60,12 +60,6 @@ export class PlayerView extends Component {
     }
 
     protected onLoad() {
-        // PhysicsSystem2D.instance.debugDrawFlags = EPhysics2DDrawFlags.Aabb |
-        //     EPhysics2DDrawFlags.Pair |
-        //     EPhysics2DDrawFlags.CenterOfMass |
-        //     EPhysics2DDrawFlags.Joint |
-        //     EPhysics2DDrawFlags.Shape;
-    
         this.collider = this.getComponent(Collider2D);
         this.rb2d = this.getComponent(RigidBody2D);
         this.selfBox = this.getComponent(UITransform).getBoundingBox();
@@ -101,10 +95,6 @@ export class PlayerView extends Component {
 
     protected onDisable(): void {
         // setTimeout(() => {
-            // this.bulletSpawner.destroyAllBullets();
-        // }, 10);
-
-        // setTimeout(() => {
         //     this.rb2d.enabled = false;
         //     }, 5);
         this.collider.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
@@ -113,7 +103,6 @@ export class PlayerView extends Component {
     protected onDestroy(): void {
         setTimeout(() => {
             this.playerController = null;
-            console.log('PlayerView destroyed and loading GameOver scene');
             director.loadScene('GameOver');
         }, 5000);
     }

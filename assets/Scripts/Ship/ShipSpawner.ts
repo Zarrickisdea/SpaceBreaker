@@ -1,4 +1,4 @@
-import { _decorator, Component, Layout, Node, Prefab, UITransform, Vec3, EventTarget, director } from 'cc';
+import { _decorator, Component, Layout, Node, Prefab, UITransform } from 'cc';
 import { ShipController } from './ShipController';
 import { ShipModel } from './ShipModel';
 import { ScoreKeeper } from '../Score/ScoreKeeper';
@@ -97,7 +97,6 @@ export class ShipSpawner extends Component {
         if (!this.enemyLayouts) {
             return;
         }
-        // this.enemyLayouts.active = true;
         return this.enemyLayouts;
     }
 
@@ -116,9 +115,7 @@ export class ShipSpawner extends Component {
     }
 
     private spawnEmptyNode(): Node {
-        console.log('spawning empty node');
         const emptyNode = new Node();
-        // emptyNode.layer = this.currentEnemyLayout.layer;
         let transform = emptyNode.addComponent(UITransform);
         transform.height = 36;
         transform.width = 72;
