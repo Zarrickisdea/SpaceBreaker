@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, Vec3, Collider2D, Contact2DType, PhysicsSystem2D, IPhysics2DContact, EPhysics2DDrawFlags, UITransform, RigidBody2D, Vec2, Rect } from 'cc';
+import { _decorator, Component, Node, Vec3, Collider2D, Contact2DType, PhysicsSystem2D, IPhysics2DContact, EPhysics2DDrawFlags, UITransform, RigidBody2D, Vec2, Rect, director } from 'cc';
 import { PlayerController } from './PlayerController';
 import { BulletSpawner } from '../Bullets/BulletSpawner';
 const { ccclass, property } = _decorator;
@@ -72,9 +72,9 @@ export class PlayerView extends Component {
     }
 
     protected onEnable(): void {
-        setTimeout(() => {
-            this.rb2d.enabled = true;
-            }, 1);
+        // setTimeout(() => {
+        //     this.rb2d.enabled = true;
+        //     }, 1);
         if (this.collider) {
             this.collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }
@@ -100,17 +100,22 @@ export class PlayerView extends Component {
     }
 
     protected onDisable(): void {
-        setTimeout(() => {
-            this.rb2d.enabled = false;
-            }, 1);
+        // setTimeout(() => {
+            // this.bulletSpawner.destroyAllBullets();
+        // }, 10);
+
+        // setTimeout(() => {
+        //     this.rb2d.enabled = false;
+        //     }, 5);
         this.collider.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
     }
 
     protected onDestroy(): void {
         setTimeout(() => {
-            this.bulletSpawner.destroyAllBullets();
             this.playerController = null;
-        }, 1);
+            console.log('PlayerView destroyed and loading GameOver scene');
+            director.loadScene('GameOver');
+        }, 5000);
     }
 }
 

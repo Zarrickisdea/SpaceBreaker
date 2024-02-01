@@ -8,6 +8,7 @@ export class PlayerDeadState extends PlayerBaseState {
     public enter(): void {
         super.enter();
         this.controller.getPlayerView().playDeadAnimation();
+        this.controller.playerDestroyed();
     }
 
     public exit(): void {

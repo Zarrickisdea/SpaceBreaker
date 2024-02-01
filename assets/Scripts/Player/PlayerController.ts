@@ -96,6 +96,14 @@ export class PlayerController {
         this.playerModel.destroyStates();
     }
 
+    public playerDestroyed(): void {
+        this.destroyStates();
+
+        setTimeout(() => {
+            this.playerView.node.destroy();
+        }, 5);
+    }
+
     private attachTouchEvents(): void {
         const touchEvents = [
             { eventType: NodeEventType.TOUCH_START, handler: this.onTouchStart },

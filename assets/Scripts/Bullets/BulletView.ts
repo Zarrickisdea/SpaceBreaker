@@ -64,15 +64,19 @@ export class BulletView extends Component {
     }
 
     protected onEnable(): void {
-        setTimeout(() => {
-        this.rb2d.enabled = true;
-        }, 1);
+        // if (this.rb2d) {
+        //     setTimeout(() => {
+        //         this.rb2d.enabled = true;
+        //         }, 1);
+        // }
     }
 
     protected onDisable(): void {
-        setTimeout(() => {
-            this.rb2d.enabled = false;
-            }, 1);
+        // if (this.rb2d) {
+        //     setTimeout(() => {
+        //         this.rb2d.enabled = false;
+        //         }, 1);
+        // }
     }
 
     protected onDestroy(): void {

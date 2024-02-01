@@ -40,6 +40,10 @@ export class BulletController {
         this.parentBulletSpawner.returnBulletToPool(this);
     }
 
+    public destroySelf(): void {
+        this.bulletView.node.active = false;
+    }
+
     public setParentSpawner(parentBulletSpawner: BulletSpawner): void {
         this.parentBulletSpawner = parentBulletSpawner;
     }

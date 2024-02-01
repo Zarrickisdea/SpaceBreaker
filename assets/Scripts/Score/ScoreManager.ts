@@ -10,10 +10,12 @@ export class ScoreManager {
     private scoreUI: Node = null;
 
     public static getInstance(): ScoreManager {
-        if (!ScoreManager.instance) {
-            ScoreManager.instance = new ScoreManager();
+        if (this.instance) {
+            return this.instance;
         }
-        return ScoreManager.instance;
+
+        this.instance = new ScoreManager();
+        return this.instance;
     }
 
     public setScoreUI(scoreUI: Node): void {

@@ -64,9 +64,7 @@ export class ShipView extends Component {
     }
 
     public playDeadAnimation(): void {
-        setTimeout(() => {
-            this.node.active = false;
-        }, 1);
+        this.node.active = false;
     }
 
     protected onLoad(): void {
@@ -82,7 +80,7 @@ export class ShipView extends Component {
             this.collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }
 
-        this.rb2d.enabled = true;
+        // this.rb2d.enabled = true;
         this.hitsToKillUI.string = this.shipController.getHitsToKill().toString();
         // this.hitsToKillUI.fontColor = new Color(255, 255, 255, 0);
     }
@@ -102,15 +100,22 @@ export class ShipView extends Component {
             this.collider.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }
 
-        setTimeout(() => {
-            this.rb2d.enabled = false;
-            }, 1);
-        
-        this.shipController.ShipDestroyedEvent();
+        // setTimeout(() => {
+            // this.bulletSpawner.destroyAllBullets();
+        // }, 10);
+
+        // if (this.rb2d) {
+        //     setTimeout(() => {
+        //         this.rb2d.enabled = false;
+        //         }, 1);
+        // }
+
+        if (this.shipController) {
+            this.shipController.ShipDestroyedEvent();
+        }
     }
 
     protected onDestroy(): void {
-        this.bulletSpawner.destroyAllBullets();
         this.shipController = null;
     }
 }

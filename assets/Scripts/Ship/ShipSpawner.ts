@@ -1,4 +1,4 @@
-import { _decorator, Component, Layout, Node, Prefab, UITransform, Vec3, EventTarget } from 'cc';
+import { _decorator, Component, Layout, Node, Prefab, UITransform, Vec3, EventTarget, director } from 'cc';
 import { ShipController } from './ShipController';
 import { ShipModel } from './ShipModel';
 import { ScoreKeeper } from '../Score/ScoreKeeper';
@@ -17,32 +17,32 @@ export class ShipSpawner extends Component {
     private maxHitsToKill: number = 0;
 
     @property({ type: Node })
-    private enemyLayouts: Node[] = [];
+    private enemyLayouts: Node = null;
 
     @property
     private numberOfShipsToSpawn: number = 0;
 
-    @property({ type: Node})
+    @property({ type: Node })
     private scoreKeeperNode: Node = null;
 
-    private parentCanvas: Node = null;
     private scoreKeeper: ScoreKeeper = null;
     private currentEnemyLayout: Node = null;
     private numberOfAliveShips: number = 0;
 
     public onShipDestroyed(ship: Node): void {
+        if (!this.currentEnemyLayout || !ship) {
+            console.log('no current enemy layout or ship');
+            return;
+        }
         this.numberOfAliveShips--;
 
-        this.currentEnemyLayout.removeChild(ship);
+        ship.destroy();
         this.currentEnemyLayout.getComponent(Layout).updateLayout();
 
         if (this.numberOfAliveShips <= 0) {
             setTimeout(() => {
-                this.currentEnemyLayout.removeAllChildren();
-            }, 1);
-            setTimeout(() => {
                 this.spawnShipsInLayout();
-            }, 5);
+            }, 1000);
         }
     }
 
@@ -53,19 +53,16 @@ export class ShipSpawner extends Component {
     }
 
     protected onLoad(): void {
-        this.parentCanvas = this.node.parent;
         this.scoreKeeper = this.scoreKeeperNode.getComponent(ScoreKeeper);
 
     }
 
     protected start(): void {
+        this.currentEnemyLayout = this.spawnEnemyShipLayoutNode();
         this.spawnShipsInLayout();
     }
 
     private spawnShipsInLayout() {
-        this.currentEnemyLayout = this.spawnEnemyShipLayoutNode();
-        console.log('current enemy layout: ' + this.currentEnemyLayout.name);
-
         for (let i = 0; i < this.numberOfShipsToSpawn; i++) {
             let spawnEmptiness = Math.random() < 0.35;
             if (spawnEmptiness) {
@@ -82,51 +79,46 @@ export class ShipSpawner extends Component {
     }
 
     private getRandomShipViewPrefab(): Prefab {
-        const randomIndex = Math.floor(Math.random() * this.shipViewPrefabs.length);
-        return this.shipViewPrefabs[randomIndex];
-    }
-
-    private getRandomLayoutNode(): Node {
-        console.log('getting random layout node');
-        const randomIndex = Math.floor(Math.random() * this.enemyLayouts.length);
-        if(!this.enemyLayouts[randomIndex].activeInHierarchy) {
-            return this.enemyLayouts[randomIndex];
+        if (this.shipViewPrefabs != null) {
+            const randomIndex = Math.floor(Math.random() * this.shipViewPrefabs.length);
+            return this.shipViewPrefabs[randomIndex];
         }
     }
 
+    // private getRandomLayoutNode(): Node {
+    //     console.log('getting random layout node');
+    //     const randomIndex = Math.floor(Math.random() * this.enemyLayouts.length);
+    //     if(!this.enemyLayouts[randomIndex].activeInHierarchy) {
+    //         return this.enemyLayouts[randomIndex];
+    //     }
+    // }
+
     private spawnEnemyShipLayoutNode(): Node {
-        console.log('spawning enemy ship layout node');
-        const enemyLayoutNode = this.enemyLayouts[0];
-        enemyLayoutNode.active = true;
-        return enemyLayoutNode;
+        if (!this.enemyLayouts) {
+            return;
+        }
+        // this.enemyLayouts.active = true;
+        return this.enemyLayouts;
     }
 
     private spawnShip(): ShipController {
-        console.log('spawning ship');
         const shipViewPrefab = this.getRandomShipViewPrefab();
-        console.log('setting hits to kill');
         const hitsToKill = this.getRandomHitsToKill();
-        console.log('new ship model');
         const shipModel = new ShipModel(hitsToKill);
-        console.log('new ship controller');
-        const shipController = new ShipController(shipViewPrefab, shipModel);
-        console.log('setting ship parent steps');
-        console.log('update layout');
-        this.currentEnemyLayout.getComponent(Layout).updateLayout();
-        console.log('set ship parent');
-        console.log(shipController.getShipView());
-        console.log(this.currentEnemyLayout);
-        shipController.getShipView().setShipParent(this.currentEnemyLayout);
-        console.log('update layout');
-        this.currentEnemyLayout.getComponent(Layout).updateLayout();
-        shipController.setShipSpawner(this);
-        return shipController;
+        if (shipViewPrefab != null) {
+            const shipController = new ShipController(shipViewPrefab, shipModel);
+            this.currentEnemyLayout?.getComponent(Layout).updateLayout();
+            shipController.getShipView().setShipParent(this.currentEnemyLayout);
+            this.currentEnemyLayout?.getComponent(Layout).updateLayout();
+            shipController.setShipSpawner(this);
+            return shipController;
+        }
     }
 
     private spawnEmptyNode(): Node {
         console.log('spawning empty node');
         const emptyNode = new Node();
-        emptyNode.layer = this.currentEnemyLayout.layer;
+        // emptyNode.layer = this.currentEnemyLayout.layer;
         let transform = emptyNode.addComponent(UITransform);
         transform.height = 36;
         transform.width = 72;

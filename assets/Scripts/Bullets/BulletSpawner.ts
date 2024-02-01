@@ -27,13 +27,14 @@ export class BulletSpawner extends Component {
     }
 
     public returnBulletToPool(bulletController: BulletController): void {
-        // console.log('returning bullet ' + this.bulletPool.length + ' to ' + this.node.parent.name);
-        this.bulletPool.push(bulletController);
+        if (this.bulletPool) {
+            this.bulletPool.push(bulletController);
+        }
     }
 
     public destroyAllBullets(): void {
-        this.bulletPool.forEach(bullet => {
-            bullet.getBulletView().destroySelf();
+        this.bulletPool.forEach((bulletController) => {
+            bulletController.destroySelf();
         });
     }
     
@@ -52,7 +53,6 @@ export class BulletSpawner extends Component {
     }
 
     protected onDestroy(): void {
-        this.bulletPool = [];
         this.parentCanvas = null;
     }
 

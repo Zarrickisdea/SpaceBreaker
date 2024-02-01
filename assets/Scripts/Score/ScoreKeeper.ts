@@ -23,9 +23,7 @@ export class ScoreKeeper extends Component {
     }
 
     protected onLoad(): void {
-        this.scoreManager = new ScoreManager();
-
-        this.node.on('updateScore', this.addScore, this);
+        this.scoreManager = ScoreManager.getInstance();
     }
 }
 
