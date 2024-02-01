@@ -1,4 +1,4 @@
-import { _decorator, Collider2D, Component, Contact2DType, Node, Vec3, PhysicsSystem2D, RigidBody2D } from 'cc';
+import { _decorator, Collider2D, Component, Contact2DType, Node, Vec3, PhysicsSystem2D, RigidBody2D, RichText } from 'cc';
 import { ShipController } from './ShipController';
 import { BulletSpawner } from '../Bullets/BulletSpawner';
 const { ccclass, property } = _decorator;
@@ -13,6 +13,7 @@ export class ShipView extends Component {
     private bulletSpawner: BulletSpawner = null;
     private collider: Collider2D = null;
     private rb2d: RigidBody2D = null;
+    private hitsToKillUI: RichText = null;
 
     public setShipController(shipController: ShipController): void {
         this.shipController = shipController;
@@ -44,6 +45,10 @@ export class ShipView extends Component {
         return this.bulletSpawner;
     }
 
+    public updateScoreUI() {
+        this.hitsToKillUI.string = this.shipController.getHitsToKill().toString();
+    }
+
     public playDeadAnimation(): void {
         setTimeout(() => {
             this.node.active = false;
@@ -55,6 +60,7 @@ export class ShipView extends Component {
         this.rb2d = this.node.getComponent(RigidBody2D);
 
         this.bulletSpawner = this.bulletSpawnerNode.getComponent(BulletSpawner);
+        this.hitsToKillUI = this.node.getChildByName('HitsToKill').getComponent(RichText);
     }
 
     protected onEnable(): void {
@@ -63,6 +69,7 @@ export class ShipView extends Component {
         }
 
         this.rb2d.enabled = true;
+        this.hitsToKillUI.string = this.shipController.getHitsToKill().toString();
     }
 
     protected onBeginContact(selfCollider, otherCollider, contact): void {

@@ -78,10 +78,15 @@ export class ShipController {
     public onHit(): void {
         let hitPoints = this.shipModel.getHitsToKill();
         this.shipModel.setHitsToKill(hitPoints - 1);
+        this.shipView.updateScoreUI();
     }
 
     public checkIfDead(): boolean {
         return this.shipModel.getHitsToKill() <= 0;
+    }
+
+    public getHitsToKill(): number {
+        return this.shipModel.getHitsToKill();
     }
 
     public update(deltaTime: number): void {
