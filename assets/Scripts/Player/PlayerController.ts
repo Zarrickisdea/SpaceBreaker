@@ -3,6 +3,7 @@ import { PlayerModel } from './PlayerModel';
 import { PlayerView } from './PlayerView';
 import { StateMachine } from '../State Machine/StateMachine';
 import { BulletSpawner } from '../Bullets/BulletSpawner';
+import { PlayerBaseState } from './PlayerStates/PlayerBaseState';
 const { ccclass, property } = _decorator;
 
 @ccclass('PlayerController')
@@ -77,8 +78,21 @@ export class PlayerController {
         this.playerStateMachine.changeState(PlayerBaseState);
     }
 
+    public getCurrentState(): PlayerBaseState {
+        return this.playerStateMachine.getCurrentState();
+    }
+
     public fireBullet(): void {
         this.playerView.getBulletSpawner().getBullet().FireBullet(this.direction);
+    }
+
+    public onEnemyBulletHit(): void {
+        this.playerModel.setIsDead(true);
+        this.changeState(this.playerModel.getState('Dead'));
+    }
+
+    public destroyStates(): void {
+        this.playerModel.destroyStates();
     }
 
     private attachTouchEvents(): void {

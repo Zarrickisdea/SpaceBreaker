@@ -13,6 +13,10 @@ export class PlayerIdleState extends PlayerBaseState {
         this.controller.changeState(this.controller.getPlayerModel().getState('Move'));
     }
 
+    public onBeginContact(selfCollider, otherCollider, contact): void {
+        super.onBeginContact(selfCollider, otherCollider, contact);
+    }
+
     public exit(): void {
         super.exit();
     }

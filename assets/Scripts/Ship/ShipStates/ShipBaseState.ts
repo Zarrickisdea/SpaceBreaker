@@ -1,6 +1,7 @@
 import { _decorator } from 'cc';
 import { ShipController } from '../ShipController';
 import { BaseState } from '../../State Machine/BaseState';
+import { PhysicsLayers } from '../../Constants/GameConstants';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShipBaseState')
@@ -20,6 +21,21 @@ export class ShipBaseState extends BaseState {
 
     public update(deltaTime: number): void {
         this.stateTimer -= deltaTime;
+    }
+
+    public onBeginContact(selfCollider, otherCollider, contact): void {
+
+        if (otherCollider.group === PhysicsLayers.pBullet && selfCollider.group === PhysicsLayers.Enemy) {
+            this.controller.onHit();
+
+            setTimeout(() => {
+                otherCollider.node.active = false;
+            }, 1);
+
+            if (this.controller.checkIfDead()) {
+                this.controller.changeState(this.controller.getShipModel().getState('Dead'));
+            }
+        }
     }
 
     public exit(): void {

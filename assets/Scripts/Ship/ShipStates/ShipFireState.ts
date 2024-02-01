@@ -11,10 +11,14 @@ export class ShipFireState extends ShipBaseState {
         this.controller.fireBullet();
     }
 
+    public onBeginContact(selfCollider: any, otherCollider: any, contact: any): void {
+        super.onBeginContact(selfCollider, otherCollider, contact);
+    }
+
     public update(deltaTime: number): void {
         super.update(deltaTime);
         if (this.stateTimer <= 0) {
-            this.controller.changeState('Idle');
+            this.controller.changeState(this.controller.getShipModel().getState('Idle'));
         }
     }
 

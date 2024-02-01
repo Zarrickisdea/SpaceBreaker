@@ -32,15 +32,15 @@ export class BulletController {
     public FireBullet(direction: number, tweenDuration?: number, easingFunction? : string): void {
         this.bulletView.setParent(this.getParentCanvas());
         this.bulletView.setWorldPosition(this.parentBulletSpawner.node.parent.worldPosition);
-        this.bulletView.setAsActive();
-        this.bulletView.firingBullet(direction, tweenDuration? tweenDuration : 1, easingFunction? easingFunction : 'linear');
+        this.bulletView.setAsActive(direction, tweenDuration? tweenDuration : 1, easingFunction? easingFunction : 'linear');
+        // this.bulletView.firingBullet(direction, tweenDuration? tweenDuration : 1, easingFunction? easingFunction : 'linear');
     }
 
     public returnBulletToPool(): void {
-        this.bulletView.setParent(this.parentBulletSpawner.node);
-        this.bulletView.setPosition(this.parentBulletSpawner.node.position);
+        // this.bulletView.setParent(this.parentBulletSpawner.node);
+        // this.bulletView.setPosition(this.parentBulletSpawner.node.position);
         this.parentBulletSpawner.returnBulletToPool(this);
-        this.bulletView.setAsInactive();
+        // this.bulletView.setAsInactive();
     }
 
     public setParentSpawner(parentBulletSpawner: BulletSpawner): void {
@@ -53,7 +53,6 @@ export class BulletController {
 
     public getParentCanvasUI(): UITransform {
         return this.getParentCanvas().getComponent(UITransform);
-
     }
 }
 

@@ -10,9 +10,6 @@ export class PlayerSpawner extends Component {
     private playerPrefab: Prefab = null;
 
     @property
-    private hitsToKill: number = 0;
-
-    @property
     private damage: number = 0;
 
     @property
@@ -24,7 +21,7 @@ export class PlayerSpawner extends Component {
     private parentCanvas: Node = null;
 
     private spawnPlayer(): void {
-        const playerModel = new PlayerModel(this.hitsToKill, this.damage, this.speed, this.shootInterval);
+        const playerModel = new PlayerModel(this.damage, this.speed, this.shootInterval);
         const playerController = new PlayerController(this.playerPrefab, playerModel);
         playerController.getPlayerView().setPlayerParent(this.node.parent);
         playerController.getPlayerView().setPlayerPosition(this.node.position);

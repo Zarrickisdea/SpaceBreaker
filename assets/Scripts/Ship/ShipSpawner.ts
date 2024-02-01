@@ -9,10 +9,10 @@ export class ShipSpawner extends Component {
     @property({ type: Prefab })
     private shipViewPrefabs: Prefab[] = [];
 
-    @property({ range: [1, 3] })
+    @property({ range: [3, 5] })
     private minHitsToKill: number = 0;
 
-    @property({ range: [4, 6] })
+    @property({ range: [6, 10] })
     private maxHitsToKill: number = 0;
 
     @property({ type: Node })
