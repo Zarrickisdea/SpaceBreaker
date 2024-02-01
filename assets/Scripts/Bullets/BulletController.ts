@@ -33,14 +33,14 @@ export class BulletController {
         this.bulletView.setParent(this.getParentCanvas());
         this.bulletView.setWorldPosition(this.parentBulletSpawner.node.parent.worldPosition);
         this.bulletView.setAsActive(direction, tweenDuration? tweenDuration : 1, easingFunction? easingFunction : 'linear');
-        // this.bulletView.firingBullet(direction, tweenDuration? tweenDuration : 1, easingFunction? easingFunction : 'linear');
     }
 
     public returnBulletToPool(): void {
-        // this.bulletView.setParent(this.parentBulletSpawner.node);
-        // this.bulletView.setPosition(this.parentBulletSpawner.node.position);
         this.parentBulletSpawner.returnBulletToPool(this);
-        // this.bulletView.setAsInactive();
+    }
+
+    public destroySelf(): void {
+        this.bulletView.node.active = false;
     }
 
     public setParentSpawner(parentBulletSpawner: BulletSpawner): void {

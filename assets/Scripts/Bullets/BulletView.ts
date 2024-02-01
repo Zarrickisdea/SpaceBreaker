@@ -34,6 +34,12 @@ export class BulletView extends Component {
 
     public setAsInactive(): void {
         this.node.active = false;
+        this.bulletController.returnBulletToPool();
+        this.cancelFiringTween(); 
+    }
+
+    public destroySelf(): void {
+        this.node.destroy();
     }
 
     public setParent(parent: Node): void {
@@ -46,23 +52,34 @@ export class BulletView extends Component {
 
     public firingBullet(direction: number, tweenDuration: number, easingFunction: string): void {
         this.firingTween = tween(this.node)
-            .to(tweenDuration, { position: new Vec3(this.node.position.x, direction * (this.bulletController.getParentCanvasUI().height / 2), 0), }, { easing: easingFunction })
+            .to(tweenDuration, { position: new Vec3(this.node.position.x, direction * (this.bulletController.getParentCanvasUI().height / 1.5), 0), }, { easing: easingFunction })
             .call(() => {this.setAsInactive();})
             .start();
     }
 
     protected onLoad(): void {
-        this.rb2d = this.getComponent(RigidBody2D);
+        this.rb2d = this.node.getComponent(RigidBody2D);
     }
 
     protected onEnable(): void {
-        this.rb2d.enabled = true;
+        // if (this.rb2d) {
+        //     setTimeout(() => {
+        //         this.rb2d.enabled = true;
+        //         }, 1);
+        // }
     }
 
     protected onDisable(): void {
-        this.bulletController.returnBulletToPool();
-        this.cancelFiringTween();
-        this.rb2d.enabled = false;
+        // if (this.rb2d) {
+        //     setTimeout(() => {
+        //         this.rb2d.enabled = false;
+        //         }, 1);
+        // }
+    }
+
+    protected onDestroy(): void {
+        this.bulletController = null;
+        this.rb2d = null;
     }
 
     private cancelFiringTween(): void {

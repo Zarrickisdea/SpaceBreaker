@@ -1,4 +1,4 @@
-import { _decorator, Component, Node } from 'cc';
+import { _decorator } from 'cc';
 import { BaseState } from './BaseState';
 const { ccclass, property } = _decorator;
 
@@ -22,6 +22,10 @@ export class StateMachine {
 
     public getCurrentState(): any {
         return this.currentState;
+    }
+
+    public SetEventListeners(any: any): void {
+        this.currentState.SetEventListeners(any);
     }
 }
 

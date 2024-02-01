@@ -1,15 +1,17 @@
-import { _decorator, Component, Node, Prefab, instantiate } from 'cc';
+import { _decorator, Prefab, instantiate } from 'cc';
 import { ShipView } from './ShipView';
 import { ShipModel } from './ShipModel';
 import { StateMachine } from '../State Machine/StateMachine';
 import { ShipBaseState } from './ShipStates/ShipBaseState';
-const { ccclass, property } = _decorator;
+import { ShipSpawner } from './ShipSpawner';
+const { ccclass, property } = _decorator;;
 
 @ccclass('ShipController')
 export class ShipController {
 
     private shipView: ShipView = null;
     private shipModel: ShipModel = null;
+    private shipSpawner: ShipSpawner = null;
 
     private shipStateMachine: StateMachine = null;
 
@@ -40,12 +42,24 @@ export class ShipController {
         return this.shipModel;
     }
 
+    public getShipSpawner(): ShipSpawner {
+        return this.shipSpawner;
+    }
+
+    public setShipSpawner(shipSpawner: ShipSpawner): void {
+        this.shipSpawner = shipSpawner;
+    }
+
     public setViewStatus(status: boolean): void {
         this.shipView.node.active = status;
     }
 
     public fireBullet(): void {
-        this.shipView.getBulletSpawner().getBullet().FireBullet(this.direction, 3, 'expoIn');
+        this.shipView.getBulletSpawner().getBullet().FireBullet(this.direction, 3, 'fade');
+    }
+
+    public ShipDestroyedEvent(): void {
+        this.shipSpawner.onShipDestroyed(this.shipView.node);
     }
 
     public getCurrentState(): ShipBaseState {
@@ -63,14 +77,25 @@ export class ShipController {
     public onHit(): void {
         let hitPoints = this.shipModel.getHitsToKill();
         this.shipModel.setHitsToKill(hitPoints - 1);
+        this.shipView.updatehpUI();
     }
 
     public checkIfDead(): boolean {
         return this.shipModel.getHitsToKill() <= 0;
     }
 
+    public getHitsToKill(): number {
+        return this.shipModel.getHitsToKill();
+    }
+
+    public updateScore(): void {
+        this.shipSpawner.updateScore();
+    }
+
     public update(deltaTime: number): void {
-        this.shipStateMachine.getCurrentState().update(deltaTime);
+        if (this.shipStateMachine.getCurrentState()) {
+            this.shipStateMachine.getCurrentState().update(deltaTime);
+        }
     }
 }
 

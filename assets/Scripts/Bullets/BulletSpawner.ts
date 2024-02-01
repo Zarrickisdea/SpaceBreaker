@@ -10,7 +10,7 @@ export class BulletSpawner extends Component {
     private bulletPrefab: Prefab = null;
 
     @property
-    private speed: number = 0;
+    private tweenDuration: number = 0;
 
     @property
     private poolSize: number = 0;
@@ -19,19 +19,22 @@ export class BulletSpawner extends Component {
     private parentCanvas: Node = null;
 
     public getBullet(): BulletController {
-        for (let i = 0; i < this.bulletPool.length; i++) {
-            if (!this.bulletPool[i].getBulletView().getIsAlive()) {
-                return this.bulletPool[i];
-            }
+        if (this.bulletPool.length === 0) {
+            return this.spawnBullet();
         }
-    
-        const newBulletController = this.spawnBullet();
-    
-        return newBulletController;
+        return this.bulletPool.pop();
     }
 
     public returnBulletToPool(bulletController: BulletController): void {
-        this.bulletPool.push(bulletController);
+        if (this.bulletPool) {
+            this.bulletPool.push(bulletController);
+        }
+    }
+
+    public destroyAllBullets(): void {
+        this.bulletPool.forEach((bulletController) => {
+            bulletController.destroySelf();
+        });
     }
     
     public getPoolSize(): number {
@@ -40,17 +43,23 @@ export class BulletSpawner extends Component {
 
     protected onLoad(): void {
         this.parentCanvas = director.getScene().getChildByName('Canvas');
+    }
 
+    protected start(): void {
         for (let i = 0; i < this.poolSize; i++) {
             this.spawnBullet();
         }
     }
 
+    protected onDestroy(): void {
+        this.parentCanvas = null;
+    }
+
     private spawnBullet(): BulletController {
-        const bulletModel = new BulletModel(this.speed);
+        const bulletModel = new BulletModel(this.tweenDuration);
         const bulletController = new BulletController(this.bulletPrefab, bulletModel, this.parentCanvas);
-        bulletController.getBulletView().setParent(this.node);
         bulletController.setParentSpawner(this);
+        bulletController.getBulletView().setParent(this.node);
         bulletController.getBulletView().setAsInactive();
         this.bulletPool.push(bulletController);
         return bulletController;

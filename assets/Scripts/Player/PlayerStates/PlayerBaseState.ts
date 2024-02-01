@@ -31,7 +31,7 @@ export class PlayerBaseState extends BaseState {
                 if (bulletView) {
                     
                     setTimeout(() => {
-                        otherCollider.node.active = false;
+                        bulletView.setAsInactive();
                     }, 1);
 
                     this.controller.onEnemyBulletHit();

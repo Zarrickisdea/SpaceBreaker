@@ -20,20 +20,20 @@ export class PlayerSpawner extends Component {
 
     private parentCanvas: Node = null;
 
-    private spawnPlayer(): void {
-        const playerModel = new PlayerModel(this.damage, this.speed, this.shootInterval);
-        const playerController = new PlayerController(this.playerPrefab, playerModel);
-        playerController.getPlayerView().setPlayerParent(this.node.parent);
-        playerController.getPlayerView().setPlayerPosition(this.node.position);
-        playerController.getPlayerView().setParentCanvas(this.parentCanvas);
-    }
-
     protected onLoad(): void {
         this.parentCanvas = this.node.parent;
     }
 
     protected start(): void {
         this.spawnPlayer();
+    }
+
+    private spawnPlayer(): void {
+        const playerModel = new PlayerModel(this.damage, this.speed, this.shootInterval);
+        const playerController = new PlayerController(this.playerPrefab, playerModel);
+        playerController.getPlayerView().setPlayerParent(this.node.parent);
+        playerController.getPlayerView().setPlayerPosition(this.node.position);
+        playerController.getPlayerView().setParentCanvas(this.parentCanvas);
     }
 }
 
