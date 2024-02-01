@@ -318,8 +318,8 @@
     ],
     "value": {
       "__type__": "cc.Size",
-      "width": 95,
-      "height": 50
+      "width": 95.83374914461677,
+      "height": 50.4
     }
   },
   {
@@ -336,7 +336,7 @@
     "propertyPath": [
       "_active"
     ],
-    "value": false
+    "value": true
   },
   {
     "__type__": "cc.UITransform",

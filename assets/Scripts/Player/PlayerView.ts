@@ -72,17 +72,14 @@ export class PlayerView extends Component {
     }
 
     protected onEnable(): void {
-        this.rb2d.enabled = true;
+        setTimeout(() => {
+            this.rb2d.enabled = true;
+            }, 1);
         if (this.collider) {
             this.collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }
 
         this.bulletSpawner = this.bulletSpawnerNode.getComponent(BulletSpawner);
-    }
-
-    protected onDisable(): void {
-        this.rb2d.enabled = false;
-        this.collider.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
     }
 
     protected start(): void {
@@ -100,6 +97,20 @@ export class PlayerView extends Component {
 
     protected onBeginContact(selfCollider: Collider2D, otherCollider: Collider2D, contact: IPhysics2DContact | null): void {
         this.playerController.getCurrentState().onBeginContact(selfCollider, otherCollider, contact);
+    }
+
+    protected onDisable(): void {
+        setTimeout(() => {
+            this.rb2d.enabled = false;
+            }, 1);
+        this.collider.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
+    }
+
+    protected onDestroy(): void {
+        setTimeout(() => {
+            this.bulletSpawner.destroyAllBullets();
+            this.playerController = null;
+        }, 1);
     }
 }
 

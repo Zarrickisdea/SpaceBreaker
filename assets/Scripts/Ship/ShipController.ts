@@ -60,7 +60,7 @@ export class ShipController {
     }
 
     public ShipDestroyedEvent(): void {
-        this.shipSpawner.onShipDestroyed();
+        this.shipSpawner.onShipDestroyed(this.shipView.node);
     }
 
     public getCurrentState(): ShipBaseState {
@@ -85,7 +85,9 @@ export class ShipController {
     }
 
     public update(deltaTime: number): void {
-        this.shipStateMachine.getCurrentState().update(deltaTime);
+        if (this.shipStateMachine.getCurrentState()) {
+            this.shipStateMachine.getCurrentState().update(deltaTime);
+        }
     }
 }
 

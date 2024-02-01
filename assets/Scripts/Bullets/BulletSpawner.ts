@@ -43,17 +43,24 @@ export class BulletSpawner extends Component {
 
     protected onLoad(): void {
         this.parentCanvas = director.getScene().getChildByName('Canvas');
+    }
 
+    protected start(): void {
         for (let i = 0; i < this.poolSize; i++) {
             this.spawnBullet();
         }
     }
 
+    protected onDestroy(): void {
+        this.bulletPool = [];
+        this.parentCanvas = null;
+    }
+
     private spawnBullet(): BulletController {
         const bulletModel = new BulletModel(this.tweenDuration);
         const bulletController = new BulletController(this.bulletPrefab, bulletModel, this.parentCanvas);
-        bulletController.getBulletView().setParent(this.node);
         bulletController.setParentSpawner(this);
+        bulletController.getBulletView().setParent(this.node);
         bulletController.getBulletView().setAsInactive();
         this.bulletPool.push(bulletController);
         return bulletController;

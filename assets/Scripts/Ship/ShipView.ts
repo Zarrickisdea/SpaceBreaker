@@ -30,8 +30,10 @@ export class ShipView extends Component {
         this.node.setWorldPosition(position);
     }
 
-    public setShipParent(parent: Node, keepWorldTransform?: boolean): void {
-        this.node.setParent(parent, keepWorldTransform);
+    public setShipParent(parent: Node): void {
+        console.log('setting ship parent: ' + parent.name);
+        this.node.setParent(parent);
+        console.log('ship parent set: ' + this.node.parent.name);
     }
 
     public setParentCanvas(parentCanvas: Node): void {
@@ -44,22 +46,23 @@ export class ShipView extends Component {
 
     public playDeadAnimation(): void {
         setTimeout(() => {
-        this.node.active = false;
+            this.node.active = false;
         }, 1);
     }
 
     protected onLoad(): void {
-        this.collider = this.getComponent(Collider2D);
-        this.rb2d = this.getComponent(RigidBody2D);
+        this.collider = this.node.getComponent(Collider2D);
+        this.rb2d = this.node.getComponent(RigidBody2D);
 
         this.bulletSpawner = this.bulletSpawnerNode.getComponent(BulletSpawner);
     }
 
     protected onEnable(): void {
-        this.rb2d.enabled = true;
         if (this.collider) {
             this.collider.on(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }
+
+        this.rb2d.enabled = true;
     }
 
     protected onBeginContact(selfCollider, otherCollider, contact): void {
@@ -73,11 +76,20 @@ export class ShipView extends Component {
     }
 
     protected onDisable(): void {
-        this.rb2d.enabled = false;
-        this.bulletSpawner.destroyAllBullets();
         if (this.collider) {
             this.collider.off(Contact2DType.BEGIN_CONTACT, this.onBeginContact, this);
         }
+
+        setTimeout(() => {
+            this.rb2d.enabled = false;
+            }, 1);
+        
+        this.shipController.ShipDestroyedEvent();
+    }
+
+    protected onDestroy(): void {
+        this.bulletSpawner.destroyAllBullets();
+        this.shipController = null;
     }
 }
 

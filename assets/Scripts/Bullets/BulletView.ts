@@ -43,7 +43,9 @@ export class BulletView extends Component {
     }
 
     public setParent(parent: Node): void {
+        // console.log('setting parent: ' + parent.name);
         this.node.setParent(parent);
+        // console.log('parent set: ' + this.node.parent.name);
     }
 
     public getController(): BulletController {
@@ -58,15 +60,24 @@ export class BulletView extends Component {
     }
 
     protected onLoad(): void {
-        this.rb2d = this.getComponent(RigidBody2D);
+        this.rb2d = this.node.getComponent(RigidBody2D);
     }
 
     protected onEnable(): void {
+        setTimeout(() => {
         this.rb2d.enabled = true;
+        }, 1);
     }
 
     protected onDisable(): void {
-        this.rb2d.enabled = false;
+        setTimeout(() => {
+            this.rb2d.enabled = false;
+            }, 1);
+    }
+
+    protected onDestroy(): void {
+        this.bulletController = null;
+        this.rb2d = null;
     }
 
     private cancelFiringTween(): void {
