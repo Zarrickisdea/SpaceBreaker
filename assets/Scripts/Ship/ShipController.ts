@@ -78,7 +78,7 @@ export class ShipController {
     public onHit(): void {
         let hitPoints = this.shipModel.getHitsToKill();
         this.shipModel.setHitsToKill(hitPoints - 1);
-        this.shipView.updateScoreUI();
+        this.shipView.updatehpUI();
     }
 
     public checkIfDead(): boolean {
@@ -87,6 +87,10 @@ export class ShipController {
 
     public getHitsToKill(): number {
         return this.shipModel.getHitsToKill();
+    }
+
+    public updateScore(): void {
+        this.shipSpawner.updateScore();
     }
 
     public update(deltaTime: number): void {

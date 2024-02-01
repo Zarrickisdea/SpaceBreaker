@@ -1,6 +1,7 @@
 import { _decorator, Component, Layout, Node, Prefab, UITransform, Vec3, EventTarget } from 'cc';
 import { ShipController } from './ShipController';
 import { ShipModel } from './ShipModel';
+import { ScoreKeeper } from '../Score/ScoreKeeper';
 const { ccclass, property } = _decorator;
 
 @ccclass('ShipSpawner')
@@ -21,20 +22,21 @@ export class ShipSpawner extends Component {
     @property
     private numberOfShipsToSpawn: number = 0;
 
+    @property({ type: Node})
+    private scoreKeeperNode: Node = null;
+
     private parentCanvas: Node = null;
+    private scoreKeeper: ScoreKeeper = null;
     private currentEnemyLayout: Node = null;
     private numberOfAliveShips: number = 0;
 
     public onShipDestroyed(ship: Node): void {
         this.numberOfAliveShips--;
-        console.log(this.currentEnemyLayout.children);
-        console.log(this.numberOfAliveShips + this.numberOfShipsToSpawn);
 
         this.currentEnemyLayout.removeChild(ship);
         this.currentEnemyLayout.getComponent(Layout).updateLayout();
 
         if (this.numberOfAliveShips <= 0) {
-            console.log('all ships destroyed');
             setTimeout(() => {
                 this.currentEnemyLayout.removeAllChildren();
             }, 1);
@@ -44,8 +46,16 @@ export class ShipSpawner extends Component {
         }
     }
 
+    public updateScore(): void {
+        if (this.scoreKeeper) {
+            this.scoreKeeper.addScore();
+        }
+    }
+
     protected onLoad(): void {
         this.parentCanvas = this.node.parent;
+        this.scoreKeeper = this.scoreKeeperNode.getComponent(ScoreKeeper);
+
     }
 
     protected start(): void {

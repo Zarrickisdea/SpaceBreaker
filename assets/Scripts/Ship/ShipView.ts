@@ -15,8 +15,8 @@ export class ShipView extends Component {
     private rb2d: RigidBody2D = null;
     private hitsToKillUI: RichText = null;
 
-    private scoreTween: any = null;
-    private scoreOpacityTween: any = null;
+    private hpTween: any = null;
+    private hpOpacityTween: any = null;
 
     public setShipController(shipController: ShipController): void {
         this.shipController = shipController;
@@ -48,16 +48,16 @@ export class ShipView extends Component {
         return this.bulletSpawner;
     }
 
-    public updateScoreUI() {
-        if (this.scoreTween && this.scoreOpacityTween) {
-            this.scoreTween.stop();
-            this.scoreOpacityTween.stop();
-            this.scoreTween = null;
-            this.scoreOpacityTween = null;
+    public updatehpUI() {
+        if (this.hpTween && this.hpOpacityTween) {
+            this.hpTween.stop();
+            this.hpOpacityTween.stop();
+            this.hpTween = null;
+            this.hpOpacityTween = null;
         }
         this.hitsToKillUI.string = this.shipController.getHitsToKill().toString();
 
-        this.scoreTween = tween(this.hitsToKillUI)
+        this.hpTween = tween(this.hitsToKillUI)
         .to(0.5, { fontSize: 50 }, { easing: 'sineOut' })
         .to(0.5, { fontSize: 30 }, { easing: 'sineIn' })
         .start();
