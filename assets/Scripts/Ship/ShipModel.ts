@@ -12,9 +12,9 @@ export class ShipModel {
     private hitsToKill: number = 0;
 
     private minIdleTime: number = 1;
-    private maxIdleTime: number = 2;
+    private maxIdleTime: number = 4;
 
-    private minFireCooldown: number = 1;
+    private minFireCooldown: number = 2;
     private maxFireCooldown: number = 3;
 
     private shipController: ShipController = null;

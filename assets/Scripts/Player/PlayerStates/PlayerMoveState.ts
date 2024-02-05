@@ -27,10 +27,8 @@ export class PlayerMoveState extends PlayerBaseState {
     }
 
     private movePlayer(event): void {
-        let deltaX = event.touch.getUILocationX();
-        let deltaY = event.touch.getUILocationY();
-        let newPos = new Vec3(deltaX, deltaY, 0);
-        this.controller.getPlayerView().setPlayerWorldPosition(newPos);
+        const delta = event.touch.getUIDelta();
+        this.controller.getPlayerView().setPlayerWorldPosition(delta);
     }
 }
 

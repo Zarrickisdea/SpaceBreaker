@@ -9,6 +9,9 @@ export class PlayerSpawner extends Component {
     @property({ type: Prefab })
     private playerPrefab: Prefab = null;
 
+    @property({ type: Node })
+    private playerControlNode: Node = null;
+
     @property
     private damage: number = 0;
 
@@ -34,6 +37,8 @@ export class PlayerSpawner extends Component {
         playerController.getPlayerView().setPlayerParent(this.node.parent);
         playerController.getPlayerView().setPlayerPosition(this.node.position);
         playerController.getPlayerView().setParentCanvas(this.parentCanvas);
+        playerController.setTouchControls(this.playerControlNode);
+        playerController.attachTouchEvents();
     }
 }
 

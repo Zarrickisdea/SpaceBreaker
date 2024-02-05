@@ -1,4 +1,4 @@
-import { _decorator, instantiate, NodeEventType, Prefab } from 'cc';
+import { _decorator, instantiate, NodeEventType, Prefab, Node } from 'cc';
 import { PlayerModel } from './PlayerModel';
 import { PlayerView } from './PlayerView';
 import { StateMachine } from '../State Machine/StateMachine';
@@ -15,6 +15,7 @@ export class PlayerController {
 
     private isTouching: boolean = false;
     private direction: number = 0;
+    private touchControls: Node = null;
 
     constructor(playerViewPrefab: Prefab, playerModel: PlayerModel) {
         this.playerModel = playerModel;
@@ -22,9 +23,6 @@ export class PlayerController {
         const playerPrefab = instantiate(playerViewPrefab);
         if (playerPrefab) {
             this.playerView = playerPrefab.getComponent(PlayerView);
-            if (this.playerView) {
-                this.attachTouchEvents();
-            }
         }
 
         this.playerModel.setPlayerController(this);
@@ -56,6 +54,10 @@ export class PlayerController {
     public onTouchCancel(event) {
         this.isTouching = false;
         this.playerStateMachine.getCurrentState().touchCancel(event);
+    }
+
+    public setTouchControls(touchControls: Node) {
+        this.touchControls = touchControls;
     }
 
     public getPlayerView(): PlayerView {
@@ -104,7 +106,7 @@ export class PlayerController {
         }, 5);
     }
 
-    private attachTouchEvents(): void {
+    public attachTouchEvents(): void {
         const touchEvents = [
             { eventType: NodeEventType.TOUCH_START, handler: this.onTouchStart },
             { eventType: NodeEventType.TOUCH_MOVE, handler: this.onTouchMove },
@@ -113,7 +115,7 @@ export class PlayerController {
         ];
     
         for (const event of touchEvents) {
-            this.playerView.node.on(event.eventType, event.handler, this);
+            this.touchControls.on(event.eventType, event.handler, this);
         }
     }
 }

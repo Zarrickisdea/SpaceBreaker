@@ -29,6 +29,8 @@ export class ShipSpawner extends Component {
     private currentEnemyLayout: Node = null;
     private numberOfAliveShips: number = 0;
 
+    private emptyNodes: Node[] = [];
+
     public onShipDestroyed(ship: Node): void {
         if (!this.currentEnemyLayout || !ship) {
             console.log('no current enemy layout or ship');
@@ -37,6 +39,10 @@ export class ShipSpawner extends Component {
         this.numberOfAliveShips--;
 
         ship.destroy();
+        const destroyEmpty = this.emptyNodes.pop();
+        if (destroyEmpty) {
+            destroyEmpty.destroy();
+        }
         this.currentEnemyLayout.getComponent(Layout).updateLayout();
 
         if (this.numberOfAliveShips <= 0) {
@@ -67,6 +73,7 @@ export class ShipSpawner extends Component {
             let spawnEmptiness = Math.random() < 0.35;
             if (spawnEmptiness) {
                 const emptyNode = this.spawnEmptyNode();
+                this.emptyNodes.push(emptyNode);
             }
             const shipController = this.spawnShip();
         }

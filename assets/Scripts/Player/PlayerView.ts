@@ -30,13 +30,20 @@ export class PlayerView extends Component {
     }
 
     public setPlayerWorldPosition(position: Vec3): void {
-        let clampX = Math.min(Math.max(position.x, this.minBounds.x), this.maxBounds.x);
-        let clampY = Math.min(Math.max(position.y, this.minBounds.y), this.maxBounds.y);
+        let newPos = this.node.worldPosition.add3f(position.x, position.y, 0);
+
+        let clampX = Math.min(Math.max(newPos.x, this.minBounds.x), this.maxBounds.x);
+        let clampY = Math.min(Math.max(newPos.y, this.minBounds.y), this.maxBounds.y);
+
         this.node.setWorldPosition(new Vec3(clampX, clampY, 0));
     }
 
     public setPlayerParent(parent: Node): void {
         this.node.setParent(parent);
+    }
+
+    public getParentCanvas(): Node {
+        return this.parentCanvas;
     }
 
     public setParentCanvas(parentCanvas: Node): void {
@@ -79,8 +86,8 @@ export class PlayerView extends Component {
     protected start(): void {
         this.bounds = this.parentCanvas.getComponent(UITransform).getBoundingBox();
 
-        this.minBounds = new Vec2(this.bounds.xMin + this.selfBox.width, this.bounds.yMin + this.selfBox.height);
-        this.maxBounds = new Vec2(this.bounds.xMax - this.selfBox.width, this.bounds.yMax - this.selfBox.height);
+        this.minBounds = new Vec2(this.bounds.xMin + (this.selfBox.width / 2), this.bounds.yMin + (this.selfBox.height / 2));
+        this.maxBounds = new Vec2(this.bounds.xMax - (this.selfBox.width / 2), this.bounds.yMax - (this.selfBox.height / 2));
 
         this.schedule( () => {
             if (this.playerController.getTouchState()) {
